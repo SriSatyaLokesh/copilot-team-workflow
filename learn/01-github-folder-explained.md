@@ -1,6 +1,6 @@
 ---
 layout: default
-parent: Learn Series
+parent: "Copilot Team Workflow"
 title: "Part 01 — The .github Folder Explained"
 description: "A tour of all 6 building blocks: copilot-instructions, instructions, agents, prompts, skills, and hooks."
 nav_order: 2

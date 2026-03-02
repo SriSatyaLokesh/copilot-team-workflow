@@ -1,6 +1,6 @@
 ---
 layout: default
-parent: Learn Series
+parent: "Copilot Team Workflow"
 title: "Part 02 — The 5-Phase Issue Workflow"
 description: "Discuss → Research → Plan → Execute → Verify. The structured workflow every developer follows."
 nav_order: 3

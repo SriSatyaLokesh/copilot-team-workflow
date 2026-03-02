@@ -1,6 +1,6 @@
 ---
 layout: default
-parent: Learn Series
+parent: "Copilot Team Workflow"
 title: "Part 03 — API Architecture"
 description: "Controller → Service → Wrapper → Transformer layer rules and why they matter for Copilot accuracy."
 nav_order: 4
