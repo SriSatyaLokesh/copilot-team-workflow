@@ -240,12 +240,12 @@ learn/                                   ← standalone guide (not copied on ins
 
 ## What You Get After Setup
 
-✅ Every Copilot session loads architecture rules automatically based on the file open
-✅ Every developer follows the same 5-phase workflow
-✅ Correct field names used in every external API call (from docs)
-✅ Every session is logged with timestamps and key decisions
-✅ Every work item has a full paper trail (discuss → research → plan → execute → verify)
-✅ New developers onboard in 30 minutes by reading the `learn/` series on the boilerplate repo
+✅ Every Copilot session loads architecture rules automatically based on the file open              
+✅ Every developer follows the same 5-phase workflow           
+✅ Correct field names used in every external API call (from docs)         
+✅ Every session is logged with timestamps and key decisions          
+✅ Every work item has a full paper trail (discuss → research → plan → execute → verify)         
+✅ New developers onboard in 30 minutes by reading the `learn/` series on the boilerplate repo        
 
 ---
 
