@@ -24,7 +24,6 @@ Every work item (feature, fix, task, story) is an **Issue** going through 5 phas
 
 | Work Type | Agent | Command | When |
 |-----------|-------|---------|------|
-| New Issue (any work) | Project Manager | select agent | Orchestrates full lifecycle |
 | Requirements | Discuss | `/discuss` | Phase 1 |
 | Codebase research | Research | auto after Discuss | Phase 2 |
 | Implementation plan | Planner | `/plan` | Phase 3 |
