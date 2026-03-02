@@ -153,7 +153,7 @@ Stack: [Your tech stack]
 These files require **no changes** and work out of the box:
 
 | File | Why it works as-is |
-|------|-------------------|
+|:---|:---|
 | All 7 agents | Logic is generic, not project-specific |
 | All 8 prompts | Commands work for any project |
 | Both hooks | Shell scripts are project-agnostic |
@@ -227,7 +227,7 @@ learn/                                   ← standalone guide (not copied on ins
 ## Estimated Setup Time
 
 | Task | Time |
-|------|------|
+|:---|:---|
 | Copy .github folder | 5 min |
 | Update copilot-instructions.md | 15 min |
 | Customize instruction files | 45 min |

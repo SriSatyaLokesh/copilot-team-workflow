@@ -205,7 +205,7 @@ The `hooks.json` defines when each script runs:
 Available events:
 
 | Event | When it fires |
-| :--- | :--- |
+|:---|:---|
 | `sessionStart` | runs when agent session opens |
 | `sessionEnd` | runs when agent session closes |
 | `userPromptSubmitted` | runs on every prompt |
@@ -241,7 +241,7 @@ hooks/session-logger/log-session-end.sh logs the session
 ## Summary
 
 | File/Folder | Loaded When | Purpose |
-|------------|------------|---------|
+|:---|:---|:---|
 | `copilot-instructions.md` | Every session | Project overview |
 | `instructions/*.instructions.md` | File matches `applyTo` | Standards per file type |
 | `agents/*.agent.md` | Developer selects or handoff | Specialist assistant |

@@ -63,16 +63,14 @@ This file covers everything specific to the accounts entity:
 
 1. **The field mapping table** — the most important part
 
-```markdown
 | API Field Name | Our Internal Name | Type | Description |
-|---------------|------------------|------|-------------|
+|:---|:---|:---|:---|
 | `accountid` | `id` | GUID | Primary key |
 | `name` | `name` | string | Company name |
 | `emailaddress1` | `email` | string | Primary contact email |
 | `telephone1` | `phone` | string | Main phone number |
 | `statecode` | `isActive` | `0=Active, 1=Inactive` | Account status |
 | `createdon` | `createdAt` | ISO datetime string | When created |
-```
 
 2. **Example API calls** — exact request/response so developers can copy-paste
 
@@ -173,11 +171,8 @@ Use `/generate-api-doc` to auto-generate from existing code, or `/update-api-doc
 
 Don't just write "Dynamics has rate limits". Document the exact behavior:
 
-```markdown
-## Rate Limits
-
 | Limit | Value | Behavior when exceeded |
-|-------|-------|----------------------|
+|:---|:---|:---|
 | Requests per 5 min | 6000 | HTTP 429, Retry-After header (seconds to wait) |
 | Concurrent requests | 52 | Request is queued, eventually completes |
 
@@ -193,7 +188,7 @@ This goes in the README for the Dynamics folder. The wrapper uses it, tests veri
 ## Summary
 
 | What | Where | Why |
-|------|-------|-----|
+|:---|:---|:---|
 | External API auth + base URL | `docs/external-apis/[api]/README.md` | Wrapper reads it before making calls |
 | Entity field name mappings | `docs/external-apis/[api]/[entity].api.md` | Transformer reads it to map fields correctly |
 | Your own internal endpoints | `docs/apis/[domain]/[endpoint].api.md` | Other developers and Copilot know what the API does |

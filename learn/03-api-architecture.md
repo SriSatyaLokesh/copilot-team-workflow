@@ -269,7 +269,7 @@ Step 6: Update docs
 ## Summary
 
 | Layer | File location | Does | Does NOT |
-|-------|-------------|------|---------|
+|:---|:---|:---|:---|
 | Controller | `src/controllers/` | Validate, auth, call service | Business logic |
 | Service | `src/services/` | Business logic, orchestrate | HTTP calls |  
 | Wrapper | `src/wrappers/` | HTTP + transform | Decisions |

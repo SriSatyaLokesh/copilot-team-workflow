@@ -23,7 +23,7 @@ By the end of this series you will have:
 ## The Series
 
 | Part | Title | What you learn | Read time |
-|------|-------|---------------|-----------|
+|:---|:---|:---|:---|
 | [00](./00-introduction.md) | **Getting Started** | Install Copilot, VS Code, extensions, enable customization | 5 min |
 | [01](./01-github-folder-explained.md) | **.github Folder Explained** | Instructions, agents, prompts, skills, hooks — all 6 blocks | 8 min |
 | [02](./02-five-phase-workflow.md) | **The 5-Phase Workflow** | Discuss → Research → Plan → Execute → Verify, with examples | 10 min |
@@ -43,7 +43,7 @@ By the end of this series you will have:
 ## Who This Is For
 
 | Role | What you get |
-|------|-------------|
+|:---|:---|
 | **Developer new to Copilot** | Clear step-by-step workflow — no guessing |
 | **Experienced developer** | Architecture-aware Copilot, no repeated context setting |
 | **Tech Lead** | A system to coordinate parallel work across your team |

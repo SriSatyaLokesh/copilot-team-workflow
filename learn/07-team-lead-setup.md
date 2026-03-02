@@ -155,7 +155,7 @@ Use the templates in `docs/templates/`:
 The most common problems and fixes:
 
 | Problem | Cause | Fix |
-|---------|-------|-----|
+|:---|:---|:---|
 | Copilot not following architecture rules | Instructions not scoped to right files | Check `applyTo` glob in the instruction frontmatter |
 | Agent giving wrong field names | External API doc not filled in | Document the entity in `docs/external-apis/` |
 | Context lost between sessions | Developer not reading issue doc | Make it a team habit: every session starts with "Read #docs/issues/..." |
@@ -168,7 +168,7 @@ The most common problems and fixes:
 Tech leads own the system. Developers own the content.
 
 | Developer responsibility | What "done" looks like |
-|--------------------------|----------------------|
+|:---|:---|
 | Update Issue doc through all 5 phases | All 5 sections filled, `status: done` |
 | Update API doc when endpoint changes | `/update-api-doc` run, doc committed with code |
 | Use the external API doc before wrapper work | `/add-new-api` prompt used, doc existed first |

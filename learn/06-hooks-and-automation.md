@@ -18,8 +18,9 @@ Hooks are shell scripts that Copilot runs automatically at specific moments duri
 Think of them as event listeners for your AI sessions.
 
 **Available events**:
+
 | Event | When it fires |
-|-------|--------------|
+|:---|:---|
 | `sessionStart` | Copilot coding agent session opens |
 | `sessionEnd` | Copilot coding agent session closes |
 | `userPromptSubmitted` | Developer sends any prompt |
@@ -102,7 +103,7 @@ git add .github/hooks/ && git commit -m "chore: add auto-commit hook" && git pus
 **What it does**:
 
 | Event | Script | Output file |
-|-------|--------|------------|
+|:---|:---|:---|
 | `sessionStart` | `log-session-start.sh` | `logs/copilot/session.log` |
 | `sessionEnd` | `log-session-end.sh` | `logs/copilot/session.log` |
 | `userPromptSubmitted` | `log-prompt.sh` | `logs/copilot/prompts.log` |
@@ -168,7 +169,7 @@ cat logs/copilot/agent-activity.log | jq 'select(.timestamp | startswith("2026-0
 ## Summary
 
 | Hook | Trigger | What it does |
-|------|---------|-------------|
+|:---|:---|:---|
 | `session-auto-commit` | Session ends | Commits + pushes uncommitted changes |
 | `session-logger` | Start/end/prompt | JSON audit trail in `logs/copilot/` |
 | Agent logging | Phase complete | Structured decision log in `logs/copilot/agent-activity.log` |

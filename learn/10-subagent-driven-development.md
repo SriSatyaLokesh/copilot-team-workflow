@@ -23,7 +23,7 @@ Instead of one agent doing everything, you use a **Controller agent** that manag
 ## The Roles
 
 | Agent | Responsibility |
-|-------|----------------|
+|:---|:---|
 | **Controller** | Reads the plan, breaks it down, and dispatches subagents. |
 | **Implementer** | Follows TDD to write code and tests for a specific task. |
 | **Spec Reviewer** | Checks if the implementer actually met the requirements in the spec. |

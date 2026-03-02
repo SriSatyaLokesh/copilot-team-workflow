@@ -26,7 +26,7 @@ You need a GitHub Copilot subscription. Go to:
 👉 **[github.com/features/copilot](https://github.com/features/copilot)**
 
 | Plan | Who it's for | Price |
-|------|-------------|-------|
+|:---|:---|:---|
 | **Copilot Free** | Individuals (limited requests/month) | Free |
 | **Copilot Individual** | Solo developers (unlimited) | $10/month |
 | **Copilot Business** | Teams (centrally managed) | $19/user/month |
@@ -161,7 +161,7 @@ This system solves all of those by teaching Copilot your project once — and ha
 ## Who This Is For
 
 | Role | What you get |
-|------|-------------|
+|:---|:---|
 | **Developer (new to Copilot)** | Clear step-by-step workflow, no guessing |
 | **Developer (experienced)** | Architecture-aware Copilot, no repeated context setting |
 | **Tech Lead** | Coordination system for parallel work across the team |
@@ -172,7 +172,7 @@ This system solves all of those by teaching Copilot your project once — and ha
 ## The Full Series
 
 | Part | Topic | Read time |
-|------|-------|-----------| 
+|:---|:---|:---| 
 | **00** | Getting Started — Installation & Setup (this file) | 5 min |
 | **01** | [What's in the .github folder?](./01-github-folder-explained.md) | 8 min |
 | **02** | [The 5-Phase Issue Workflow](./02-five-phase-workflow.md) | 10 min |

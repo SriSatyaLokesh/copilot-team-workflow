@@ -52,6 +52,31 @@ pre.highlight {
     }
 }
 
+// Tables
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1.5rem 0;
+    border: 1px solid #e1e4f3;
+
+    th,
+    td {
+        border: 1px solid #e1e4f3;
+        padding: 0.75rem;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f8f9ff;
+        color: #3451b2;
+        font-weight: 700;
+    }
+
+    tr:nth-child(even) {
+        background-color: #fbfbfb;
+    }
+}
+
 // Ensure the side nav text is also bolder and more visible
 .nav-list-link {
     font-weight: 500;

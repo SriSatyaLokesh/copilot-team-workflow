@@ -193,7 +193,7 @@ Mixing issues in one session causes context bleed — Copilot starts mixing requ
 ## Quick Command Reference
 
 | Situation | Command |
-|-----------|---------|
+|:---|:---|
 | Starting a new Issue | Select Discuss agent → describe task |
 | Resuming an issue | "Read #docs/issues/issue-xxx.md first" |
 | Planning code | `/plan` |
@@ -231,11 +231,11 @@ End of day:
 
 ## What You Do NOT Need to Do
 
-❌ Configure Copilot before each session (instructions load automatically)
-❌ Explain your architecture in every prompt (instructions carry it)
-❌ Remember external API field names (external API docs carry them)
-❌ Write PR descriptions manually (ask Copilot "Write a PR description from the Issue doc")
-❌ Manually commit at session end (session-auto-commit hook does it)
+❌ Configure Copilot before each session (instructions load automatically)              
+❌ Explain your architecture in every prompt (instructions carry it)             
+❌ Remember external API field names (external API docs carry them)              
+❌ Write PR descriptions manually (ask Copilot "Write a PR description from the Issue doc")              
+❌ Manually commit at session end (session-auto-commit hook does it)                 
 
 **Next: Hooks and Automation →** [06-hooks-and-automation.md](./06-hooks-and-automation.md)
 

@@ -17,7 +17,7 @@ nav_order: 10
 Most developers treat testing as an "afterthought" or a verification step. In the Copilot workflow, **TDD is a design tool**.
 
 | Reason | The Reality |
-|--------|-------------|
+|:---|:---|
 | **Design Specification** | The test is a "wish list" of how your API should look. It forces you to think about usability before implementation. |
 | **Hallucination Guard** | Copilot easily hallucinates field names. A failing test proves your code actually works, rather than just "looking right." |
 | **Refactoring Safety** | With green tests, you can refactor or optimize code with 100% confidence. |
@@ -96,7 +96,7 @@ Ensure the error message is a constant and clean up the validation logic if more
 ## Common Rationalizations (And Why They're Wrong)
 
 | Excuse | The Hard Truth |
-|--------|----------------|
+|:---|:---|
 | "Too simple to test" | Simple code is where silly bugs hide. A test takes 30 seconds. |
 | "I'll test after" | Tests written after code are biased. You'll test what you built, not what was required. |
 | "Already manually tested" | Manual tests aren't repeatable. You'll have to do it again for every future change. |
@@ -120,7 +120,7 @@ Always mock the **COMPLETE** data structure. If an API returns an object with 10
 ## Summary
 
 | Phase | Action |
-|-------|--------|
+|:---|:---|
 | **RED** | Prove the feature is missing or the bug exists. |
 | **GREEN** | Implement the simplest fix. |
 | **REFACTOR** | Clean up the design while staying green. |
