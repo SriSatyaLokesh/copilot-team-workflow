@@ -97,7 +97,6 @@ Agents are like hiring a specialist for each phase of work. Each agent file defi
 ├── tdd.agent.md              ← Phase 4: writes tests first, then code
 ├── review.agent.md           ← Reviews code before PR
 ├── verify.agent.md           ← Phase 5: checks Issue is done
-├── project-manager.agent.md  ← Orchestrates the whole lifecycle
 └── api-builder.agent.md      ← Specialist for external API integrations
 ```
 
@@ -162,7 +161,6 @@ A skill is a folder containing a `SKILL.md` — a detailed reference document th
 
 ```
 .github/skills/
-├── project-manager/SKILL.md        ← Full PM workflow, delegation patterns
 └── agent-activity-logger/SKILL.md  ← Log format for session audit trail
 ```
 
@@ -227,7 +225,7 @@ add-new-api.prompt.md activates → ApiBuilder agent launches
         ↓
 ApiBuilder reads:
   - docs/external-apis/dynamics/ (field maps for Dynamics CRM)
-  - .github/skills/project-manager/SKILL.md (delegation patterns)
+  - .github/instructions/api-architecture.instructions.md (standards)
         ↓
 Agent writes code → session ends
 

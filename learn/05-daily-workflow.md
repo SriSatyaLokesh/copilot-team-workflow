@@ -37,10 +37,10 @@ Product: "We need to add rate limiting to the login endpoint"
 git checkout -b issue/ISSUE-042-login-rate-limiting
 ```
 
-**Step 2**: Open Copilot Chat. Select **"Project Manager"** agent.
+**Step 2**: Open Copilot Chat. Select **"Discuss"** agent.
 
-> If you're unsure which agent to pick, always start with Project Manager.
-> It routes you to the right place.
+> If you're starting a new feature, bug, or task, always start with the **Discuss** agent.
+> It helps define the requirements and creates your Issue doc.
 
 **Step 3**: Describe the task
 
@@ -49,7 +49,7 @@ git checkout -b issue/ISSUE-042-login-rate-limiting
 Max 5 attempts per 15 minutes per email address."
 ```
 
-**Step 4**: Project Manager automatically starts the **Discuss** agent
+**Step 4**: The **Discuss** agent will define the requirements.
 
 The Discuss agent will ask you focused questions. Answer them — it takes about 10 minutes to get clear, agreed requirements.
 
@@ -194,7 +194,7 @@ Mixing issues in one session causes context bleed — Copilot starts mixing requ
 
 | Situation | Command |
 |-----------|---------|
-| Starting a new Issue | Select Project Manager → describe task |
+| Starting a new Issue | Select Discuss agent → describe task |
 | Resuming an Issue | "Read #docs/issues/ISSUE-XXX.md first" |
 | Planning code | `/plan` |
 | Implementing | `/execute` |

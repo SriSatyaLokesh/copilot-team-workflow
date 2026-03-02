@@ -17,11 +17,11 @@ nav_order: 9
 
 This repository is a **ready-to-use boilerplate** for setting up GitHub Copilot for any software development team. It contains:
 
-- 8 pre-configured agents (Discuss, Research, Planner, TDD, Reviewer, Verify, ProjectManager, ApiBuilder)
+- 7 pre-configured agents (Discuss, Research, Planner, TDD, Reviewer, Verify, ApiBuilder)
 - 5 instruction files (developer guide, API architecture, backend, frontend, testing)
 - 8 prompt slash commands (discuss, plan, execute, verify, add-new-api, code-review, generate-api-doc, update-api-doc)
 - 2 automation hooks (session-auto-commit, session-logger)
-- 2 skills (project-manager, agent-activity-logger)
+- 1 skill (agent-activity-logger)
 - 9 documentation templates (Issue, API doc, wrapper doc, external API, flow, copilot-instructions)
 - A complete learn series (this series, 9 blog-style guides)
 
@@ -154,7 +154,7 @@ These files require **no changes** and work out of the box:
 
 | File | Why it works as-is |
 |------|-------------------|
-| All 8 agents | Logic is generic, not project-specific |
+| All 7 agents | Logic is generic, not project-specific |
 | All 8 prompts | Commands work for any project |
 | Both hooks | Shell scripts are project-agnostic |
 | All templates | Generic — fill in per use |
@@ -181,7 +181,6 @@ These files require **no changes** and work out of the box:
 │   ├── tdd.agent.md                     ← works as-is
 │   ├── review.agent.md                  ← works as-is
 │   ├── verify.agent.md                  ← works as-is
-│   ├── project-manager.agent.md         ← works as-is
 │   └── api-builder.agent.md             ← works as-is
 ├── prompts/
 │   ├── discuss.prompt.md                ← works as-is
@@ -193,7 +192,6 @@ These files require **no changes** and work out of the box:
 │   ├── generate-api-doc.prompt.md       ← works as-is
 │   └── update-api-doc.prompt.md         ← works as-is
 ├── skills/
-│   ├── project-manager/SKILL.md         ← works as-is
 │   └── agent-activity-logger/SKILL.md   ← works as-is
 └── hooks/
     ├── session-auto-commit/             ← works as-is

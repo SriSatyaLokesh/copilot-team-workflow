@@ -199,7 +199,6 @@ Before starting any coding session, spend 10 seconds opening the right doc:
 
 | Agent | Best For | How to Use |
 |-------|---------|-----------|
-| **Project Manager** | Starting any new piece of work | Select "Project Manager" agent |
 | **Discuss** | Clarifying requirements for a new Issue | `/discuss` |
 | **Research** | Exploring codebase before planning | Auto, or select Research agent |
 | **Planner** | Creating implementation plan from research | `/plan` |
@@ -208,7 +207,7 @@ Before starting any coding session, spend 10 seconds opening the right doc:
 | **Verify** | Final check — all requirements met? | `/verify` |
 | **API Builder** | Adding new external API integrations | `/add-new-api` |
 
-> **Tip**: Start every piece of work with `Project Manager` — it routes you to the right next agent automatically.
+> **Tip**: Start every new unit of work with the **Discuss** agent. It helps you define requirements and automatically triggers the research phase.
 
 ---
 
@@ -234,7 +233,7 @@ Before starting any coding session, spend 10 seconds opening the right doc:
 
 ```
 1. Create branch: git checkout -b issue/ISSUE-042-login-rate-limiting
-2. Open Copilot Chat → select "Project Manager" agent
+2. Open Copilot Chat → select "Discuss" agent
 3. Describe what you need to build
 4. /discuss → requirements defined → auto-research kicks in
 5. Review research findings
@@ -446,11 +445,12 @@ All they need:
 
 ### What We Researched
 
-1. **VS Code team's `.github/` folder** — 13 instructions, 17 prompts, 11 skills, 2 agents
-2. **Official VS Code Copilot documentation** — agents, skills, hooks, subagents, background agents
-3. **Zoey AI Agents PM pattern** — specialist skill delegation, requirements docs, work summaries
-4. **github/awesome-copilot** — 172 agents, 175 instructions, 361 skills, governance hooks, plugins
-5. **GSD (Get Stuff Done)** — solo workflow with 5 phases (good inspiration, not suitable for teams)
+| Source | Topic |
+|--------|-------|
+| 1. **VS Code team's .github/ folder** | 13 instructions, 17 prompts, 11 skills, 2 agents |
+| 2. **Official VS Code Copilot documentation** | agents, skills, hooks, subagents, background agents |
+| 3. **github/awesome-copilot** | 172 agents, 175 instructions, 361 skills, governance hooks, plugins |
+| 4. **GSD (Get Stuff Done)** | solo workflow with 5 phases (good inspiration, not suitable for teams) |
 
 ### Why Not GSD for Teams
 
@@ -467,7 +467,7 @@ This prevents "just start coding" chaos. We kept the phases, dropped the shared 
 
 ### Our Approach Is
 
-> **VS Code team's patterns** + **feature-level documentation** + **GSD phase structure** + **Zoey's PM skill delegation** 
+> **VS Code team's patterns** + **feature-level documentation** + **GSD phase structure** 
 
 Native Copilot features, used the way the teams who build Copilot use them.
 

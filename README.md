@@ -3,7 +3,7 @@
 A production-ready `.github/` configuration that turns GitHub Copilot into a structured, consistent AI development partner for your team.
 
 **What you get in ~3 hours of setup:**
-- 8 specialist agents (Discuss, Research, Planner, TDD, Reviewer, Verify, ProjectManager, ApiBuilder)
+- 7 specialist agents (Discuss, Research, Planner, TDD, Reviewer, Verify, ApiBuilder)
 - 8 slash command prompts (`/discuss`, `/plan`, `/execute`, `/verify`, `/add-new-api`, `/code-review`, `/generate-api-doc`, `/update-api-doc`)
 - Auto-loading instructions per file type (architecture rules, commenting standards, doc-on-change)
 - Playwright testing skills and instructions
@@ -128,14 +128,13 @@ Everything else works out of the box.
 │   ├── playwright-typescript.instructions.md         ← Playwright test standards
 │   ├── self-explanatory-code-commenting.instructions.md ← Comment WHY not WHAT
 │   └── update-docs-on-code-change.instructions.md   ← Doc sync on code change
-├── agents/                              ← 8 specialist agents
+├── agents/                              ← 7 specialist agents
 │   ├── discuss.agent.md
 │   ├── research.agent.md
 │   ├── plan.agent.md
 │   ├── tdd.agent.md
 │   ├── review.agent.md
 │   ├── verify.agent.md
-│   ├── project-manager.agent.md
 │   └── api-builder.agent.md
 ├── prompts/                             ← 8 slash commands
 │   ├── discuss.prompt.md                ← /discuss
@@ -147,7 +146,6 @@ Everything else works out of the box.
 │   ├── generate-api-doc.prompt.md       ← /generate-api-doc
 │   └── update-api-doc.prompt.md         ← /update-api-doc
 ├── skills/
-│   ├── project-manager/SKILL.md
 │   ├── agent-activity-logger/SKILL.md
 │   ├── playwright-automation-fill-in-form/SKILL.md
 │   ├── playwright-explore-website/SKILL.md
