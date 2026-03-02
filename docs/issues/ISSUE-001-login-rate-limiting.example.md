@@ -1,13 +1,3 @@
----
-issue-id: "issue-001"
-title: "User Login with Rate Limiting"
-status: "done"
-branch: "issue/issue-001-login-rate-limiting"
-created: "2026-03-01"
-completed: "2026-03-02"
-developer: "sri-lokesh"
----
-
 # issue-001: User Login with Rate Limiting
 
 > **This is an example Issue doc.** Copy `docs/templates/issue-template.md` to create your own.
