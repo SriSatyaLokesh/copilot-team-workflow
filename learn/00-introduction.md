@@ -70,7 +70,7 @@ Click it. You now have access to:
 - **Edit** — make changes to files
 - **Agent** — run a full AI agent session
 
-> **Where you'll spend most time in this system**: the **Agent** tab, where you select an agent (like `Discuss` or `Project Manager`) and it guides your work through phases.
+> **Where you'll spend most time in this system**: the **Agent** tab, where you select an agent (like `Discuss` or `Planner`) and it guides your work through phases.
 
 ---
 
@@ -139,9 +139,9 @@ git push
 
 ## What You Can Do Now
 
-Open Copilot Chat → select the **Agent** tab → choose **"Project Manager"** → describe a task.
+Open Copilot Chat → select the **Agent** tab → choose **"Discuss"** → describe a task.
 
-That's it. The Project Manager agent will guide you through the entire workflow — Discuss → Research → Plan → Execute → Verify — step by step.
+That's it. The Discuss agent will guide you through the first phase of the workflow — Discuss → Research → Plan → Execute → Verify — step by step.
 
 ---
 
