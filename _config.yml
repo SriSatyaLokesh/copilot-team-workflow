@@ -10,7 +10,7 @@ nav_sort: order
 search_enabled: true
 
 # Colour scheme
-color_scheme: dark
+color_scheme: light
 
 # GitHub repo link in header
 aux_links:
