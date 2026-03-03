@@ -26,6 +26,10 @@ The 5-phase workflow prevents this. Every piece of work — feature, bug fix, im
 
 ## The 5 Phases
 
+> [!IMPORTANT]
+> **Prerequisite: Known Codebase**
+> Before starting the 5-phase workflow on an existing project, you MUST run the **`/acquire-codebase-knowledge`** process. This ensures the `docs/codebase/` templates are populated with factual evidence (Architecture, Stack, Conventions). Without this mapping, Copilot might hallucinate patterns or suggest incompatible technologies.
+
 ```
 /start-issue  → Create branch + baseline first  ← ALWAYS START HERE
       ↓

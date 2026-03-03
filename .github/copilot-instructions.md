@@ -35,17 +35,20 @@ Every work item is an **Issue** going through 5 phases:
 - All feature branches are cut from the **primary branch** (never directly from `main` unless `main` IS the primary branch).
 
 ## Where to Find Things
+- **Codebase Index**: `docs/codebase/` (Architecture, Stack, Conventions, etc.)
 - **Flow docs**: `docs/flows/[flow-name]-flow.md`
 - **API docs**: `docs/apis/[domain]/[endpoint].api.md`
 - **Issue docs**: `docs/issues/issue-xxx-name.md`
 - **Templates**: `docs/templates/`
 
 ## For AI Agents
-1. Read the API doc from `docs/apis/` before touching endpoint code
-2. Read the flow doc from `docs/flows/` for business context
-3. Read the Issue doc from `docs/issues/` for what's planned in this session
-4. After code changes affecting an API → run `/update-api-doc`
-5. After finishing work → update Issue doc progress tracker
+1. Before starting work, read relevant codebase docs in `docs/codebase/` to understand patterns and stack.
+2. Read the API doc from `docs/apis/` before touching endpoint code.
+3. Read the flow doc from `docs/flows/` for business context.
+4. Read the Issue doc from `docs/issues/` for what's planned in this session.
+5. **Documentation Sync**: When adding, modifying, or deleting core components, architectural patterns, or dependencies, you MUST update the corresponding files in `docs/codebase/`.
+6. After code changes affecting an API → run `/update-api-doc`.
+7. After finishing work → update Issue doc progress tracker.
 
 ## Conventions (fill in per project — or run `/init` to auto-generate)
 - [Your project-specific coding rules go here]

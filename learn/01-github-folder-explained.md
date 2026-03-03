@@ -165,6 +165,7 @@ A skill is a folder containing a `SKILL.md` — a detailed reference document th
 
 ```
 .github/skills/
+├── acquire-codebase-knowledge/SKILL.md  ← Factual codebase mapping (Arch, Stack, etc.)
 ├── agent-activity-logger/SKILL.md        ← Log format for session audit trail
 ├── doc-reviewer/SKILL.md                 ← Brutal doc review (Critical/Major/Minor + score)
 ├── documentation-writer/SKILL.md         ← Diátaxis-guided doc creation (4 types)
