@@ -27,16 +27,38 @@ The 5-phase workflow prevents this. Every piece of work — feature, bug fix, im
 ## The 5 Phases
 
 ```
-① DISCUSS   → Define WHAT before HOW
+/start-issue  → Create branch + baseline first  ← ALWAYS START HERE
+      ↓
+① DISCUSS     → Define WHAT before HOW
       ↓ (auto-triggers)
-② RESEARCH  → Find WHERE before PLANNING
+② RESEARCH    → Find WHERE before PLANNING
       ↓
-③ PLAN      → Design HOW before CODING
+③ PLAN        → Design HOW before CODING
       ↓
-④ EXECUTE   → Code with TESTS first
+④ EXECUTE     → Code with TESTS first
       ↓
-⑤ VERIFY    → Check before PR
+⑤ VERIFY      → Check before PR
+      ↓
+/finish-branch → Merge / PR / Keep / Discard
 ```
+
+---
+
+### Before Phase 1 — Start Issue (`/start-issue`) — **Always begin here**
+
+**Goal**: Create an isolated branch and verify a clean test baseline before any requirements work.
+
+**What it does**:
+1. Checks you are not on `main`/`master`
+2. Pulls latest from `main`
+3. Creates branch: `issue/[issue-id]-[slug]`
+4. Runs `npm test` — confirms baseline is green before any new work
+5. Creates the Issue doc at `docs/issues/[issue-id]-[slug].md`
+6. Hands off to the **Discuss** agent
+
+> **Why `/start-issue` instead of just selecting the Discuss agent?** `/start-issue` enforces the branch-first rule. Going straight to Discuss means you might discuss and plan on `main`, then forget to branch. `/start-issue` makes the branch the first non-negotiable step.
+
+**Output**: Feature branch created, Issue doc initialized, Discuss begins
 
 ---
 
@@ -45,8 +67,6 @@ The 5-phase workflow prevents this. Every piece of work — feature, bug fix, im
 **Goal**: Write down requirements everyone agrees on, before anyone touches code.
 
 **Output**: Phase 1 section in the Issue doc
-
----
 
 ---
 
@@ -85,12 +105,12 @@ Risk:
 
 ---
 
-### Phase 3 — Plan (`/plan`)
+### Phase 3 — Plan ("Create Plan →" button)
 
 **Goal**: Create an ordered implementation checklist before writing any code.
 
 **What happens**:
-1. Developer runs `/plan` (or uses the "Create Plan" handoff button)
+1. Developer clicks **"Create Plan →"** from the Research handoff (or selects the `Planner` agent directly)
 2. Planner agent reads Phase 1 (requirements) + Phase 2 (research findings)
 3. Creates a structured plan with:
    - Architecture decisions (and why)
@@ -194,6 +214,25 @@ Verdict: ✅ READY FOR PR
 
 ---
 
+### After Phase 5 — Finish Branch (`/finish-branch`)
+
+**Goal**: Final gate before merging — runs tests + quality checks, then offers 4 structured options.
+
+**What it does**:
+1. Re-runs the full test suite (`npm test`)
+2. Runs TypeScript check (`npx tsc --noEmit`) and lint
+3. Reads the Issue doc to verify all Phase 1 requirements are met
+4. Presents 4 options:
+   - **Merge to main locally** — merge the branch into main now
+   - **Push and create a PR** — push branch and open a GitHub PR
+   - **Keep as-is** — preserve the branch, handle merging later
+   - **Discard** — delete the branch (asks for typed confirmation first)
+5. Updates Issue doc `status: done` after merge or PR
+
+> **Why use `/finish-branch` instead of just running `git merge`?** It enforces the final test + requirements gate — prevents merging green-code-but-broken-requirements or broken lint.
+
+---
+
 ## The Issue Document
 
 Every Issue has ONE file tracking all 5 phases:
@@ -233,6 +272,21 @@ Task checklist: ...
 
 ---
 
+### The `related-flow` and `related-apis` fields
+
+The Issue doc frontmatter has two fields every developer should fill in:
+
+```yaml
+related-flow: "auth-flow"         ← name of the flow doc in docs/flows/
+related-apis: ["auth/login"]      ← paths to API docs in docs/apis/
+```
+
+These fields help Copilot **find the right context automatically** during Research and Execute phases. When the Research agent reads your Issue doc, it uses these links to pull in `docs/flows/auth-flow.md` and `docs/apis/auth/login.api.md` — giving it the full picture of what your code is supposed to do.
+
+Fill them in before starting Research. Leave them blank and Copilot may miss important business rules and endpoint contracts.
+
+---
+
 ## Starting a Session on an Existing Issue
 
 This is the most important habit: **always re-read the Issue doc** when resuming work.
@@ -247,13 +301,15 @@ Copilot sees the full context: what was decided, what was researched, what the p
 
 ## Summary
 
-| Phase | Command | Time | Who decides to stop |
+| Phase | How to start | Time | Who decides to stop |
 |:---|:---|:---|:---|
-| Discuss | `/discuss` | 10-15 min | Developer approves requirements |
-| Research | automatic | 5-10 min | Research agent presents findings |
-| Plan | `/plan` | 15-20 min | Developer approves plan |
+| Start Issue | `/start-issue` | 2-5 min | Branch + baseline green |
+| Discuss | Select `Discuss` agent | 10-15 min | Developer approves requirements |
+| Research | automatic (handoff from Discuss) | 5-10 min | Research agent presents findings |
+| Plan | Click `Create Plan →` button | 15-20 min | Developer approves plan |
 | Execute | `/execute` | Varies | All tasks complete and committed |
 | Verify | `/verify` | 10 min | Verify agent gives green light |
+| Finish | `/finish-branch` | 2-5 min | Developer chooses merge/PR/keep/discard |
 
 **Next: API Architecture →** [03-api-architecture.md](./03-api-architecture.md)
 

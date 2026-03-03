@@ -180,12 +180,12 @@ This system solves all of those by teaching Copilot your project once — and ha
 | **04** | [Documenting External APIs](./04-documenting-external-apis.md) | 10 min |
 | **05** | [Your Daily Developer Workflow](./05-daily-workflow.md) | 8 min |
 | **06** | [Hooks — What Runs Automatically](./06-hooks-and-automation.md) | 6 min |
-| **07** | [Team Lead Setup Guide](./07-team-lead-setup.md) | 10 min |
+| **07** | [Customizing for your project — what to fill in](./07-team-lead-setup.md) | 10 min |
 | **08** | [Using This Repo as a Boilerplate](./08-boilerplate-setup.md) | 5 min |
 | **09** | [Test-Driven Development (TDD)](./09-test-driven-development.md) | 10 min |
 | **10** | [Subagent-Driven Development](./10-subagent-driven-development.md) | 8 min |
 
-**Total read time: ~92 minutes**
+**Total read time: ~90 minutes**
 
 **Continue to Part 01 →** [01-github-folder-explained.md](./01-github-folder-explained.md)
 

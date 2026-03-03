@@ -166,8 +166,9 @@ Before you create a PR, run the `/review` command. This dispatches a specialized
 
 1. Run `/verify` — get the verification report
 2. Fix every ❌ item the Verify agent found
-3. Ask Copilot: **"Write a PR description for issue-xxx from the issue doc"** — paste the output into GitHub
-4. Request a teammate to review
+3. Run `/finish-branch` — it re-runs tests, checks lint + TypeScript, confirms requirements, then presents options: **Merge locally / Push PR / Keep as-is / Discard**
+4. For PR option: `gh pr create` is run automatically with a description from the Issue doc
+5. Request a teammate to review
 
 The reviewer runs `/code-review` on the PR files for a systematic multi-dimension review.
 
@@ -194,13 +195,13 @@ Mixing issues in one session causes context bleed — Copilot starts mixing requ
 
 | Situation | Command |
 |:---|:---|
-| Starting a new Issue | Select Discuss agent → describe task |
+| Starting a new Issue | `/start-issue` (creates branch + baseline first) |
 | Resuming an issue | "Read #docs/issues/issue-xxx.md first" |
 | Planning code | `/plan` |
 | Implementing | `/execute` |
 | Adding external API | `/add-new-api` |
 | Reviewing code | `/code-review` |
-| Before PR | `/verify` → ask Copilot for PR description |
+| Before PR | `/verify` → `/finish-branch` |
 | Changed endpoint | `/update-api-doc` |
 | New endpoint | `/generate-api-doc` |
 

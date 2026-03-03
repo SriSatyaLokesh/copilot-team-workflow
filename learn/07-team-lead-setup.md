@@ -27,9 +27,15 @@ After setup, developers should be able to:
 
 ### Step 1: Copy the .github folder (30 min)
 
+Follow the install script in [Part 08 — Boilerplate Setup](./08-boilerplate-setup.md) for the full copy-paste commands (PowerShell or Bash). In short:
+
 ```bash
-# In your project
-cp -r /path/to/this-repo/.github /your-project/.github
+# Navigate to your project
+git clone https://github.com/SriSatyaLokesh/copilot-best-practices-for-teams.git copilot-boilerplate
+cp -r copilot-boilerplate/.github ./
+cp -r copilot-boilerplate/docs ./
+rm -rf copilot-boilerplate
+git add .github/ docs/
 ```
 
 Or use this repo as a template via GitHub: **"Use this template" → Create new repository**.

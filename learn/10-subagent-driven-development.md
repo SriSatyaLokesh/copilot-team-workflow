@@ -52,6 +52,30 @@ This ensures you aren't just blindly following suggestions that might break othe
 
 ---
 
+## How to Use Subagents in Practice
+
+When you have an implementation plan with 3+ independent tasks in Phase 4:
+
+1. **Open Copilot Chat** → select the **Agent** tab
+2. **Select the `ParallelBuilder` agent** from the agent picker
+3. **Type** (or use the argument-hint placeholder):
+   ```
+   Execute Phase 4 from #docs/issues/ISSUE-XXX-name.md
+   ```
+4. The ParallelBuilder agent will:
+   - Read the Phase 3 task list
+   - Identify which tasks are truly independent (no shared files)
+   - Dispatch each independent task to a fresh TDD Implementer subagent
+   - Wait for each to complete
+   - Run the full test suite across all results
+   - Present a combined summary
+
+> **One-session rule still applies**: the ParallelBuilder session is the controller. Each subagent gets its own isolated context so they don't pollute each other.
+
+> **Red flag**: If two tasks modify the same file, ParallelBuilder will flag them as dependent and execute them sequentially, not in parallel. This is expected — it prevents merge conflicts.
+
+---
+
 ## The Two-Stage Review
 
 In this workflow, every task goes through two gates before it's marked "Done":

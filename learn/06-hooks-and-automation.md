@@ -119,6 +119,8 @@ git add .github/hooks/ && git commit -m "chore: add auto-commit hook" && git pus
 {"timestamp":"2026-03-02T16:45:00Z","event":"sessionEnd"}
 ```
 
+> **camelCase vs PascalCase**: The hook event names in `hooks.json` use PascalCase (`SessionStart`, `Stop`, `UserPromptSubmit`) — these are the names VS Code recognizes. The log labels in the output above (`sessionStart`, `sessionEnd`, `userPromptSubmitted`) are camelCase because the shell scripts write them independently. They are two separate things: the trigger name (PascalCase, for VS Code) and the log label (camelCase, written by the script).
+
 **Privacy**: Full prompt text is **never** logged. Only event metadata (timestamp, event type).
 
 **Important**: Add `logs/` to `.gitignore`. These files are local only — never committed.

@@ -17,13 +17,13 @@ nav_order: 9
 
 This repository is a **ready-to-use boilerplate** for setting up GitHub Copilot for any software development team. It contains:
 
-- 7 pre-configured agents (Discuss, Research, Planner, TDD, Reviewer, Verify, ApiBuilder)
-- 5 instruction files (developer guide, API architecture, backend, frontend, testing)
-- 8 prompt slash commands (discuss, plan, execute, verify, add-new-api, code-review, generate-api-doc, update-api-doc)
+- 8 pre-configured agents (Discuss, Research, Planner, TDD, Reviewer, Verify, ApiBuilder, ParallelBuilder)
+- 9 instruction files (developer guide, API architecture, backend, frontend, testing, Playwright, commenting, doc-sync, parallel-agents)
+- 11 prompt slash commands (/start-issue, /discuss, /research, /execute, /verify, /debug, /add-new-api, /receive-review, /finish-branch, /generate-api-doc, /update-api-doc)
 - 2 automation hooks (session-auto-commit, session-logger)
-- 1 skill (agent-activity-logger)
-- 9 documentation templates (Issue, API doc, wrapper doc, external API, flow, copilot-instructions)
-- A complete learn series (this series, 9 blog-style guides)
+- 10 skills (TDD, subagent-driven-dev, Playwright × 3, code review × 2, doc-reviewer, documentation-writer, activity-logger)
+- 9 documentation templates (Issue, API doc, wrapper doc, external API, flow, ADR, architecture, project, copilot-instructions)
+- A complete learn series (this series, 11 blog-style guides)
 
 Everything is designed to drop into an existing project with **minimal customization**.
 
@@ -109,9 +109,15 @@ After copying, add these to your workspace `.vscode/settings.json` then **reload
 {
   "github.copilot.chat.codeGeneration.useInstructionFiles": true,
   "chat.promptFilesLocations": [".github/prompts"],
-  "chat.instructionsFilesLocations": [".github/instructions"]
+  "chat.instructionsFilesLocations": [".github/instructions"],
+  "chat.promptFilesRecommendations": {
+    "start-issue": true,
+    "debug": true
+  }
 }
 ```
+
+> **`chat.promptFilesRecommendations`**: Surfaces `/start-issue` and `/debug` as suggested actions whenever a developer opens a new chat — so they always start from the correct entry point.
 
 ---
 
@@ -154,10 +160,11 @@ These files require **no changes** and work out of the box:
 
 | File | Why it works as-is |
 |:---|:---|
-| All 7 agents | Logic is generic, not project-specific |
-| All 8 prompts | Commands work for any project |
+| All 8 agents | Logic is generic, not project-specific |
+| All 11 prompts | Commands work for any project |
 | Both hooks | Shell scripts are project-agnostic |
-| All templates | Generic — fill in per use |
+| All 9 templates | Generic — fill in per use |
+| All 10 skills | Generic knowledge packs |
 | `developer-guide.instructions.md` | Generic developer guide |
 | `learn/` folder (boilerplate root) | The learning series, read before installing |
 
@@ -168,12 +175,17 @@ These files require **no changes** and work out of the box:
 ```
 .github/
 ├── copilot-instructions.md              ← EDIT: your project overview
+├── tool-sets.json                       ← works as-is
 ├── instructions/
 │   ├── developer-guide.instructions.md  ← works as-is
 │   ├── api-architecture.instructions.md ← EDIT: your folder paths
 │   ├── backend.instructions.md          ← EDIT: your stack
 │   ├── frontend.instructions.md         ← EDIT: your frontend stack
-│   └── testing.instructions.md          ← EDIT: your test framework
+│   ├── testing.instructions.md          ← EDIT: your test framework
+│   ├── playwright-typescript.instructions.md         ← works as-is
+│   ├── self-explanatory-code-commenting.instructions.md ← works as-is
+│   ├── update-docs-on-code-change.instructions.md   ← works as-is
+│   └── parallel-agents.instructions.md  ← works as-is
 ├── agents/
 │   ├── discuss.agent.md                 ← works as-is
 │   ├── research.agent.md                ← works as-is
@@ -181,34 +193,52 @@ These files require **no changes** and work out of the box:
 │   ├── tdd.agent.md                     ← works as-is
 │   ├── review.agent.md                  ← works as-is
 │   ├── verify.agent.md                  ← works as-is
-│   └── api-builder.agent.md             ← works as-is
+│   ├── api-builder.agent.md             ← works as-is
+│   └── parallel-builder.agent.md        ← works as-is (3+ independent tasks)
 ├── prompts/
+│   ├── start-issue.prompt.md            ← works as-is (always start here)
 │   ├── discuss.prompt.md                ← works as-is
-│   ├── plan.prompt.md                   ← works as-is
+│   ├── research.prompt.md               ← works as-is
 │   ├── execute.prompt.md                ← works as-is
 │   ├── verify.prompt.md                 ← works as-is
+│   ├── debug.prompt.md                  ← works as-is
 │   ├── add-new-api.prompt.md            ← works as-is
-│   ├── code-review.prompt.md            ← works as-is
+│   ├── receive-review.prompt.md         ← works as-is
+│   ├── finish-branch.prompt.md          ← works as-is (post-verify)
 │   ├── generate-api-doc.prompt.md       ← works as-is
 │   └── update-api-doc.prompt.md         ← works as-is
 ├── skills/
-│   └── agent-activity-logger/SKILL.md   ← works as-is
+│   ├── agent-activity-logger/SKILL.md   ← works as-is
+│   ├── doc-reviewer/SKILL.md            ← works as-is
+│   ├── documentation-writer/SKILL.md    ← works as-is
+│   ├── playwright-automation-fill-in-form/SKILL.md ← works as-is
+│   ├── playwright-explore-website/SKILL.md  ← works as-is
+│   ├── playwright-generate-test/SKILL.md    ← works as-is
+│   ├── receiving-code-review/SKILL.md   ← works as-is
+│   ├── requesting-code-review/SKILL.md  ← works as-is
+│   ├── subagent-driven-development/SKILL.md ← works as-is
+│   └── test-driven-development/SKILL.md ← works as-is
 └── hooks/
     ├── session-auto-commit/             ← works as-is
     └── session-logger/                  ← works as-is
 
 docs/
+├── README.md                            ← How to use each template and folder
 ├── templates/                           ← works as-is (copy-paste starters)
 │   ├── issue-template.md
 │   ├── api-doc-template.md
 │   ├── api-wrapper-doc-template.md
 │   ├── external-api-doc-template.md
 │   ├── flow-doc-template.md
+│   ├── adr-template.md
+│   ├── architecture-template.md
+│   ├── project-template.md
 │   └── copilot-instructions-template.md
 ├── external-apis/                       ← CREATE: one folder per external API
 ├── issues/                              ← FILL: one doc per Issue
-├── apis/                                ← FILL: one doc per endpoint
-└── flows/                               ← FILL: one doc per user journey
+├── apis/                                ← FILL: one doc per internal endpoint
+├── flows/                               ← FILL: one doc per user journey
+└── decisions/                           ← FILL: one ADR per major decision
 
 learn/                                   ← standalone guide (not copied on install)
 ├── 00-introduction.md
@@ -219,7 +249,9 @@ learn/                                   ← standalone guide (not copied on ins
 ├── 05-daily-workflow.md
 ├── 06-hooks-and-automation.md
 ├── 07-team-lead-setup.md
-└── 08-boilerplate-setup.md              ← this file
+├── 08-boilerplate-setup.md              ← this file
+├── 09-test-driven-development.md
+└── 10-subagent-driven-development.md
 ```
 
 ---
