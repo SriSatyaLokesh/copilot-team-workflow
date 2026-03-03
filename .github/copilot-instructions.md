@@ -16,7 +16,7 @@
 >    ```
 >    This surfaces `/start-issue` and `/debug` as suggested actions every time chat opens.
 
-> For the full team workflow guide, see [docs/team-copilot-guide.md](../docs/team-copilot-guide.md)
+> For the full beginner guide, start at [`learn/00-introduction.md`](https://srisatyalokesh.github.io/copilot-best-practices-for-teams/)
 
 ## What This Project Is
 [One sentence: what does this project do?]

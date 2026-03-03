@@ -60,7 +60,7 @@ This phase ends only when the developer explicitly confirms the requirements loo
 - Say: *"Phase 1 complete. Handing off to Research to explore the codebase."*
 - **Automatically trigger Research agent handoff** (send: true)
 
-5. **Append a log entry** to `logs/copilot/agent-activity.log`:
+**Step 7 — Append a log entry** to `logs/copilot/agent-activity.log`:
 ```json
 {
   "timestamp": "<ISO 8601 now>",

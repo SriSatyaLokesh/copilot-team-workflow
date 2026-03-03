@@ -57,3 +57,11 @@ Now that we have an isolated branch with a clean baseline, begin the Discuss pha
 Ask: "Tell me about what you want to build with **${input:issue-description}**."
 
 Create the Issue doc at: `docs/issues/${input:issue-id}-${input:issue-slug}.md`
+
+---
+
+## Step 6 — Switch to the Discuss agent
+
+Branch created. Issue doc initialized. Baseline verified.
+
+> ✅ **Your next step**: In the Copilot Chat panel, **select the `Discuss` agent** and describe what you want to build. The Discuss agent will guide you through defining requirements before any code is written.

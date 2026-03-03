@@ -120,3 +120,11 @@ After updating the Issue doc, append to `logs/copilot/agent-activity.log`:
 }
 ```
 Create `logs/copilot/` directory if it doesn't exist. Append as a new line.
+
+---
+
+## What Next?
+
+If verdict is **✅ READY**: run `/finish-branch` to merge, push a PR, or close the branch. Do not merge manually — `/finish-branch` runs one last test gate and gives you 4 structured options.
+
+If verdict is **⛔ NOT READY**: fix every ❌ or 🔴 critical item, then re-run `/verify` before proceeding.
