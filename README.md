@@ -91,11 +91,19 @@ After copying, enable Copilot customization features in your **workspace** `.vsc
 {
   "github.copilot.chat.codeGeneration.useInstructionFiles": true,
   "chat.promptFilesLocations": [".github/prompts"],
-  "chat.instructionsFilesLocations": [".github/instructions"]
+  "chat.instructionsFilesLocations": [".github/instructions"],
+  "chat.promptFilesRecommendations": {
+    "start-issue": true,
+    "debug": true
+  }
 }
 ```
 
+> **`chat.promptFilesRecommendations`**: Surfaces `/start-issue` and `/debug` as suggested actions when opening a new chat session — ensures developers always start from the correct entry point.
+
 Then **reload VS Code** to pick up the agents, instructions, and prompts.
+
+> 💡 **Auto-generate project instructions**: Type `/init` in Copilot Chat to have Copilot analyze your workspace and generate tailored instructions. Paste the output into `.github/copilot-instructions.md` under `## Conventions`.
 
 ---
 
@@ -118,7 +126,8 @@ Everything else works out of the box.
 
 ```
 .github/
-├── copilot-instructions.md              ← Edit: your project overview
+├── copilot-instructions.md              ← Edit: your project overview + SETUP REQUIRED block
+├── tool-sets.json                       ← Pre-defined tool groups (read-only, full-dev, review)
 ├── instructions/
 │   ├── developer-guide.instructions.md  ← Always loaded — workflow overview
 │   ├── api-architecture.instructions.md ← Loaded on src/wrappers/**, src/services/**
@@ -127,34 +136,46 @@ Everything else works out of the box.
 │   ├── testing.instructions.md          ← Loaded on **/*.test.*
 │   ├── playwright-typescript.instructions.md         ← Playwright test standards
 │   ├── self-explanatory-code-commenting.instructions.md ← Comment WHY not WHAT
-│   └── update-docs-on-code-change.instructions.md   ← Doc sync on code change
-├── agents/                              ← 7 specialist agents
-│   ├── discuss.agent.md
-│   ├── research.agent.md
-│   ├── plan.agent.md
-│   ├── tdd.agent.md
-│   ├── review.agent.md
-│   ├── verify.agent.md
-│   └── api-builder.agent.md
-├── prompts/                             ← 8 slash commands
-│   ├── discuss.prompt.md                ← /discuss
+│   ├── update-docs-on-code-change.instructions.md   ← Doc sync on code change
+│   └── parallel-agents.instructions.md  ← When and how to use parallel agents
+├── agents/                              ← 8 specialist agents
+│   ├── discuss.agent.md                 ← Phase 1: requirements (argument-hint ✅)
+│   ├── research.agent.md                ← Phase 2: codebase exploration (argument-hint ✅)
+│   ├── plan.agent.md                    ← Phase 3: task breakdown (argument-hint ✅)
+│   ├── tdd.agent.md                     ← Phase 4: TDD implementer (argument-hint ✅)
+│   ├── review.agent.md                  ← Code quality reviewer
+│   ├── verify.agent.md                  ← Phase 5: done-check (argument-hint ✅)
+│   ├── api-builder.agent.md             ← External API integrations (argument-hint ✅)
+│   └── parallel-builder.agent.md        ← Orchestrator: dispatches independent tasks in parallel
+├── prompts/                             ← 12 slash commands
+│   ├── start-issue.prompt.md            ← /start-issue (Entry point — always start here)
+│   ├── discuss.prompt.md                ← /discuss (branch gate enforced)
+│   ├── research.prompt.md               ← /research
 │   ├── plan.prompt.md                   ← /plan
 │   ├── execute.prompt.md                ← /execute
 │   ├── verify.prompt.md                 ← /verify
+│   ├── debug.prompt.md                  ← /debug
 │   ├── add-new-api.prompt.md            ← /add-new-api
 │   ├── code-review.prompt.md            ← /code-review
+│   ├── receive-review.prompt.md         ← /receive-review
 │   ├── generate-api-doc.prompt.md       ← /generate-api-doc
 │   └── update-api-doc.prompt.md         ← /update-api-doc
-├── skills/
-│   ├── agent-activity-logger/SKILL.md
+├── skills/                              ← 10 auto-loading knowledge packs
+│   ├── agent-activity-logger/SKILL.md   ← Log format reference
+│   ├── doc-reviewer/SKILL.md            ← Brutal doc review (Critical/Major/Minor)
+│   ├── documentation-writer/SKILL.md    ← Diátaxis-guided doc creation
 │   ├── playwright-automation-fill-in-form/SKILL.md
 │   ├── playwright-explore-website/SKILL.md
-│   └── playwright-generate-test/SKILL.md
+│   ├── playwright-generate-test/SKILL.md
+│   ├── receiving-code-review/SKILL.md   ← Evaluate-before-implement pattern
+│   ├── requesting-code-review/SKILL.md  ← Subagent review dispatch
+│   ├── subagent-driven-development/SKILL.md ← Per-task subagent + 2-stage review
+│   └── test-driven-development/SKILL.md ← Iron Law TDD + Red-Green-Refactor
 └── hooks/
-    ├── session-auto-commit/             ← Auto-commit on session end
-    └── session-logger/                  ← JSON audit log of every session
+    ├── session-auto-commit/             ← Auto-commit on session end (Stop)
+    └── session-logger/                  ← JSON audit log (SessionStart/Stop/UserPromptSubmit)
 
-learn/                               ← 9-part beginner guide (standalone, not copied on install)
+learn/                               ← 10-part beginner guide (standalone, not copied on install)
 docs/
 ├── templates/                           ← Copy-paste starters for every doc type
 ├── external-apis/                       ← Fill in: one folder per external API
