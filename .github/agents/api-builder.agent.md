@@ -3,7 +3,7 @@ description: 'Use when adding a new external API integration or calling a new en
 name: ApiBuilder
 argument-hint: 'External API name or endpoint (e.g. "Stripe /invoices" or "Dynamics accounts entity")'
 tools: ['editFiles', 'terminal', 'search', 'codebase', 'fetch']
-model: 'gpt-4o'
+model: 'claude-sonnet-4-5'
 ---
 # API Builder Agent
 

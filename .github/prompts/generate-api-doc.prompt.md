@@ -2,6 +2,7 @@
 description: 'Generate or update an API doc for the current file or endpoint'
 agent: 'ask'
 tools: ['search', 'codebase', 'usages']
+model: 'gpt-4o'
 ---
 Generate or update the API documentation for this endpoint.
 

@@ -2,8 +2,11 @@
 description: 'Use when starting any new work item, feature, fix, or investigation — when a developer says "start a new issue", "begin new work", "I want to work on X", "create a new requirement", "work on feature", "fix the issue", "investigate the problem". Confirms the primary branch, offers to use current branch or create a new one from the latest primary, then starts the discussion phase. Required before writing any code.'
 agent: 'Discuss'
 tools: ['terminal', 'editFiles']
+model: 'gpt-4o'
 ---
 # Start Issue — Branch First, Then Define
+
+> **Note**: This prompt uses git CLI commands. If terminal access is unavailable, use VS Code's built-in Git panel (Source Control view) to check current branch, switch branches, and create new branches manually, then proceed with the Discuss phase.
 
 Before any requirements discussion or code, we set up the right workspace.
 

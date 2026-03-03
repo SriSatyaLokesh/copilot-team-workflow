@@ -2,6 +2,7 @@
 description: 'Use when a bug, test failure, or unexpected behavior is found — when a developer says "this test is failing", "this is broken", "I found a bug", "something is wrong with X", or when debugging any unexpected output. Requires systematic 4-phase root cause analysis — never guess at a fix.'
 agent: 'TDD Implementer'
 tools: ['terminal', 'search', 'codebase', 'problems', 'editFiles']
+model: 'claude-sonnet-4-5'
 ---
 # Systematic Debugging — 4-Phase Root Cause Analysis
 

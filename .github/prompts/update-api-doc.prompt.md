@@ -2,6 +2,7 @@
 description: 'Update API docs after changing an endpoint — keeps docs in sync with code'
 agent: 'ask'
 tools: ['changes', 'search', 'codebase']
+model: 'claude-haiku-4'
 ---
 The API endpoint in [${fileBasename}](${file}) was changed.
 

@@ -117,7 +117,9 @@ docs/
 | `/execute` | TDD implementation | Tests written after (or not at all) |
 | `/verify` | Check requirements + quality | Broken/incomplete code merged |
 | `/finish-branch` | Merge, PR, or discard decision | Branch abandoned or force-pushed to main |
+| `/status` | Check current phase and next step | Lost context, unsure what to do next |
 | `/add-new-api` | Adding a new external API call | Wrong field names, raw data returned |
 | `/code-review` | Reviewing files or PRs | Quality issues missed |
 | `/generate-api-doc` | Documenting a new API endpoint | Undocumented API, drift over time |
 | `/update-api-doc` | After changing an existing endpoint | Stale docs cause field name bugs |
+| `/sync-docs` | After bulk changes or refactoring | Docs out of sync, field names wrong |

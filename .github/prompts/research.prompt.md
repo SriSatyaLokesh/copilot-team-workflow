@@ -2,6 +2,7 @@
 description: 'Research the codebase for a Issue — find existing patterns, affected files, risks, and context before planning begins. Requires Phase 1 (Discuss) to be complete.'
 agent: 'Research'
 tools: ['search', 'codebase', 'usages', 'fetch']
+model: 'claude-sonnet-4-5'
 ---
 # Phase 2 — Codebase Research
 

@@ -2,6 +2,7 @@
 description: 'Use when executing an approved implementation plan from an Issue doc — when a developer says "execute the plan", "start implementing", or "begin the tasks". Requires Phase 3 (Plan) to be complete. Handles both single-agent sequential tasks and signals when parallel dispatching is needed.'
 agent: 'TDD Implementer'
 tools: ['editFiles', 'terminal', 'search', 'codebase', 'problems']
+model: 'claude-sonnet-4-5'
 ---
 # Execute Implementation Plan
 
