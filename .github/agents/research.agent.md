@@ -1,6 +1,7 @@
 ---
-description: 'Research codebase for Issue context — finds existing patterns before planning'
+description: 'Use after requirements are confirmed, before creating an implementation plan — when codebase context is needed: existing patterns, files to modify, related services, database schemas. Activates when a developer asks "where does X live?", "what pattern does the team use for Y?", or "what will this feature affect?". Runs automatically after Discuss phase.'
 name: Research
+argument-hint: 'Path to Issue doc (e.g. docs/issues/ISSUE-042-name.md)'
 tools: ['search', 'codebase', 'usages', 'problems', 'fetch', 'editFiles']
 model: 'claude-sonnet-4-5'
 handoffs:
