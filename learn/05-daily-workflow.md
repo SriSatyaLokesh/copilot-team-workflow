@@ -254,4 +254,4 @@ End of day:
 - [VS Code Copilot — Slash Commands](https://code.visualstudio.com/docs/copilot/copilot-chat#_slash-commands) — how prompt files become slash commands
 ---
 
-[← Part 04: Documenting External APIs](./04-documenting-external-apis.md) · 📚 [Learn Series](../index.md) · [Part 06: Hooks and Automation →](./06-hooks-and-automation.md)
+[← Part 04: Documenting External APIs](./04-documenting-external-apis.md) · 📚 [Learn Series](/) · [Part 06: Hooks and Automation →](./06-hooks-and-automation.md)

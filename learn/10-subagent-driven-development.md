@@ -8,7 +8,7 @@ nav_order: 11
 
 # Learn: Subagent-Driven Development
 
-[← Part 09: Test-Driven Development (TDD)](./09-test-driven-development.md) · 📚 [Learn Series](../index.md)
+[← Part 09: Test-Driven Development (TDD)](./09-test-driven-development.md) · 📚 [Learn Series](./index.md)
 
 ---
 
@@ -105,4 +105,4 @@ Subagent-Driven Development turns coding into a **systematic process** where the
 
 ---
 
-[← Part 09: Test-Driven Development (TDD)](./09-test-driven-development.md) · 📚 [Learn Series](../index.md)
+[← Part 09: Test-Driven Development (TDD)](./09-test-driven-development.md) · 📚 [Learn Series](./index.md)

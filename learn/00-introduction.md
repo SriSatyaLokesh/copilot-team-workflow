@@ -199,4 +199,4 @@ This system solves all of those by teaching Copilot your project once — and ha
 - [Get Stuff Done for Copilot](https://github.com/Punal100/get-stuff-done-for-github-copilot) — the solo-developer alternative to this system
 ---
 
-📚 [Learn Series](../index.md) · [Part 01: .github Folder Explained →](./01-github-folder-explained.md)
+📚 [Learn Series](/) · [Part 01: .github Folder Explained →](./01-github-folder-explained.md)

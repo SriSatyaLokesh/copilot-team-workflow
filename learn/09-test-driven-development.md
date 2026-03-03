@@ -8,7 +8,7 @@ nav_order: 10
 
 # Learn: Test-Driven Development (TDD)
 
-[← Part 08: Using as Boilerplate](./08-boilerplate-setup.md) · 📚 [Learn Series](../index.md) · [Part 10: Subagent-Driven Development →](./10-subagent-driven-development.md)
+[← Part 08: Using as Boilerplate](./08-boilerplate-setup.md) · 📚 [Learn Series](/) · [Part 10: Subagent-Driven Development →](./10-subagent-driven-development.md)
 
 ---
 
@@ -129,4 +129,4 @@ Always mock the **COMPLETE** data structure. If an API returns an object with 10
 
 ---
 
-[← Part 08: Using as Boilerplate](./08-boilerplate-setup.md) · 📚 [Learn Series](../index.md) · [Part 10: Subagent-Driven Development →](./10-subagent-driven-development.md)
+[← Part 08: Using as Boilerplate](./08-boilerplate-setup.md) · 📚 [Learn Series](/) · [Part 10: Subagent-Driven Development →](./10-subagent-driven-development.md)

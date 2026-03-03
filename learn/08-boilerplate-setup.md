@@ -312,4 +312,4 @@ You now know:
 - [VS Code team's `.github/` folder](https://github.com/microsoft/vscode/tree/main/.github) — the gold standard: 13 instructions, 17 prompts, 11 skills in production
 ---
 
-[← Part 07: Team Lead Setup](./07-team-lead-setup.md) · 📚 [Learn Series](../index.md) · [Part 09: TDD →](./09-test-driven-development.md)
+[← Part 07: Team Lead Setup](./07-team-lead-setup.md) · 📚 [Learn Series](/) · [Part 09: TDD →](./09-test-driven-development.md)

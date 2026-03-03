@@ -326,7 +326,7 @@ Copilot sees the full context: what was decided, what was researched, what the p
 - [VS Code Copilot — Agents](https://code.visualstudio.com/docs/copilot/chat/chat-agents) — how agent handoffs and the `send: true` auto-trigger work
 - [Test-Driven Development (TDD)](https://en.wikipedia.org/wiki/Test-driven_development) — the red→green→refactor cycle that Phase 4 is built on
 - [Conventional Commits](https://www.conventionalcommits.org/) — the `feat:`, `test:`, `docs:` commit format used in this workflow
-- Full example issue doc: [issue-001-login-rate-limiting.example.md](../docs/issues/issue-001-login-rate-limiting.example.md)
+- Full example issue doc: [issue-001-login-rate-limiting.example.md](https://github.com/SriSatyaLokesh/copilot-team-workflow/blob/main/docs/issues/issue-001-login-rate-limiting.example.md)
 ---
 
-[← Part 01: .github Folder Explained](./01-github-folder-explained.md) · 📚 [Learn Series](../index.md) · [Part 03: API Architecture →](./03-api-architecture.md)
+[← Part 01: .github Folder Explained](./01-github-folder-explained.md) · 📚 [Learn Series](/) · [Part 03: API Architecture →](./03-api-architecture.md)

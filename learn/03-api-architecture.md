@@ -287,4 +287,4 @@ Step 6: Update docs
 - [Repository Pattern](https://martinfowler.com/eaaCatalog/repository.html) — the design pattern that informs the Wrapper layer
 ---
 
-[← Part 02: The 5-Phase Workflow](./02-five-phase-workflow.md) · 📚 [Learn Series](../index.md) · [Part 04: Documenting External APIs →](./04-documenting-external-apis.md)
+[← Part 02: The 5-Phase Workflow](./02-five-phase-workflow.md) · 📚 [Learn Series](/) · [Part 04: Documenting External APIs →](./04-documenting-external-apis.md)

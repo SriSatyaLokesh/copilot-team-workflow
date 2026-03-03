@@ -8,7 +8,7 @@ nav_order: 2
 
 # Learn: What's in the .github Folder?
 
-[← Part 00: Getting Started](./00-introduction.md) · 📚 [Learn Series](../index.md) · [Part 02: The 5-Phase Workflow →](./02-five-phase-workflow.md)
+[← Part 00: Getting Started](./00-introduction.md) · 📚 [Learn Series](/) · [Part 02: The 5-Phase Workflow →](./02-five-phase-workflow.md)
 
 ---
 
@@ -39,9 +39,9 @@ An order management API that integrates with Microsoft Dynamics 365 CRM.
 Stack: Node.js + TypeScript + Express + PostgreSQL + Redis
 
 ## Key Documentation
-- [Project Overview](../docs/PROJECT.md)
+- [Project Overview](https://github.com/SriSatyaLokesh/copilot-team-workflow/blob/main/docs/project.md)
 - [API Architecture](../learn/03-api-architecture.md)
-- [External APIs](../docs/external-apis/)
+- [External APIs](https://github.com/SriSatyaLokesh/copilot-team-workflow/blob/main/docs/external-apis/)
 ```
 
 **Keep it short.** It loads every session — if it's 500 lines, it wastes context.
@@ -289,4 +289,4 @@ hooks/session-logger/log-session-end.sh logs the session
 - [github/awesome-copilot](https://github.com/github/awesome-copilot) — 172 community agents and 175 instructions to explore and add to your setup
 ---
 
-[← Part 00: Getting Started](./00-introduction.md) · 📚 [Learn Series](../index.md) · [Part 02: The 5-Phase Workflow →](./02-five-phase-workflow.md)
+[← Part 00: Getting Started](./00-introduction.md) · 📚 [Learn Series](/) · [Part 02: The 5-Phase Workflow →](./02-five-phase-workflow.md)

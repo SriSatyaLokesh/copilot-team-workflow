@@ -191,4 +191,4 @@ cat logs/copilot/agent-activity.log | jq 'select(.timestamp | startswith("2026-0
 - [Git hooks vs Copilot hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks) — Git hooks run on git commands; Copilot hooks run on AI session events — two different systems
 ---
 
-[← Part 05: Daily Developer Workflow](./05-daily-workflow.md) · 📚 [Learn Series](../index.md) · [Part 07: Team Lead Setup →](./07-team-lead-setup.md)
+[← Part 05: Daily Developer Workflow](./05-daily-workflow.md) · 📚 [Learn Series](/) · [Part 07: Team Lead Setup →](./07-team-lead-setup.md)

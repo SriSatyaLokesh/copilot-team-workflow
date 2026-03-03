@@ -66,10 +66,10 @@ Open `.github/copilot-instructions.md` and complete the **SETUP REQUIRED** check
 Stack: [Node.js + TypeScript + Express + PostgreSQL | Next.js + Prisma | etc.]
 
 ## Key Documentation
-- [Project Overview](../docs/PROJECT.md)
+- [Project Overview](https://github.com/SriSatyaLokesh/copilot-team-workflow/blob/main/docs/project.md)
 - [API Architecture](../learn/03-api-architecture.md)
-- [External APIs](../docs/external-apis/)
-- [Active Issues](../docs/issues/)
+- [External APIs](https://github.com/SriSatyaLokesh/copilot-team-workflow/blob/main/docs/external-apis/)
+- [Active Issues](https://github.com/SriSatyaLokesh/copilot-team-workflow/blob/main/docs/issues/)
 
 ## Conventions
 Primary branch: dev
@@ -240,4 +240,4 @@ For a team of 5–10 developers working on 3–5 Issues simultaneously:
 - [Glob patterns](https://code.visualstudio.com/docs/editor/glob-patterns) — the syntax used in ``applyTo`` fields in instruction files
 ---
 
-[← Part 06: Hooks and Automation](./06-hooks-and-automation.md) · 📚 [Learn Series](../index.md) · [Part 08: Using as Boilerplate →](./08-boilerplate-setup.md)
+[← Part 06: Hooks and Automation](./06-hooks-and-automation.md) · 📚 [Learn Series](/) · [Part 08: Using as Boilerplate →](./08-boilerplate-setup.md)

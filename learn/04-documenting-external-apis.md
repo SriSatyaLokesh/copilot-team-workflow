@@ -203,7 +203,7 @@ This goes in the README for the Dynamics folder. The wrapper uses it, tests veri
 - [OData Query Syntax](https://learn.microsoft.com/en-us/odata/concepts/queryoptions-overview) — ``, ``, `` query options used in Dynamics examples
 - [Microsoft Dynamics 365 Web API reference](https://learn.microsoft.com/en-us/power-apps/developer/data-platform/webapi/reference/entitytypes) — entity type reference for Dynamics
 - [Postman](https://www.postman.com/) — the recommended tool for making real API calls and capturing actual response field names
-- Example template: [`docs/templates/external-api-doc-template.md`](../docs/templates/external-api-doc-template.md) — copy this and fill in for each external API
+- Example template: [`docs/templates/external-api-doc-template.md`](https://github.com/SriSatyaLokesh/copilot-team-workflow/blob/main/docs/templates/external-api-doc-template.md) — copy this and fill in for each external API
 ---
 
-[← Part 03: API Architecture](./03-api-architecture.md) · 📚 [Learn Series](../index.md) · [Part 05: Daily Developer Workflow →](./05-daily-workflow.md)
+[← Part 03: API Architecture](./03-api-architecture.md) · 📚 [Learn Series](/) · [Part 05: Daily Developer Workflow →](./05-daily-workflow.md)
