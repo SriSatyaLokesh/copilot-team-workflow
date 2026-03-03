@@ -8,7 +8,7 @@ A production-ready `.github/` configuration that turns GitHub Copilot into a str
 - Auto-loading instructions per file type (architecture rules, commenting standards, doc-on-change)
 - Playwright testing skills and instructions
 - Session hooks (auto-commit + structured activity log)
-- 9 documentation templates (Issue, API, flow, external-API)
+- 9 documentation templates + 7 codebase knowledge templates
 - A 11-part beginner-friendly learn series in `learn/` (at repo root — not copied on install)
 
 > **Learn more**: Start with [`learn/00-introduction.md`](./learn/00-introduction.md) or read it as a website: **[srisatyalokesh.github.io/copilot-team-workflow](https://srisatyalokesh.github.io/copilot-team-workflow)**
@@ -117,6 +117,7 @@ After installation, edit these 4 files for your project:
 | `.github/instructions/api-architecture.instructions.md` | Your folder paths (`src/controllers/`, `src/wrappers/`, etc.) |
 | `.github/instructions/backend.instructions.md` | Your framework, ORM, validation library |
 | `.github/instructions/frontend.instructions.md` | Your frontend stack (React, Next.js, Vue, etc.) |
+| `.github/skills/acquire-codebase-knowledge/SKILL.md` | Initial codebase mapping questions and standards |
 
 Everything else works out of the box.
 
@@ -159,7 +160,10 @@ Everything else works out of the box.
 │   ├── finish-branch.prompt.md          ← /finish-branch (post-verify: merge/PR/discard)
 │   ├── generate-api-doc.prompt.md       ← /generate-api-doc
 │   └── update-api-doc.prompt.md         ← /update-api-doc
-├── skills/                              ← 10 auto-loading knowledge packs
+├── workflows/                           ← Specialist workflows
+│   └── acquire-codebase-knowledge.md    ← Factual codebase mapping procedure
+├── skills/                              ← 11 auto-loading knowledge packs
+│   ├── acquire-codebase-knowledge/SKILL.md ← Factual codebase mapping (Arch, Stack, etc.)
 │   ├── agent-activity-logger/SKILL.md   ← Log format reference
 │   ├── doc-reviewer/SKILL.md            ← Brutal doc review (Critical/Major/Minor)
 │   ├── documentation-writer/SKILL.md    ← Diátaxis-guided doc creation
@@ -177,6 +181,7 @@ Everything else works out of the box.
 learn/                               ← 10-part beginner guide (standalone, not copied on install)
 docs/
 ├── templates/                           ← Copy-paste starters for every doc type
+├── codebase/                            ← Factual codebase knowledge (Arch, Stack, etc.)
 ├── external-apis/                       ← Fill in: one folder per external API
 ├── issues/                              ← Fill in: one doc per work item
 ├── apis/                                ← Fill in: one doc per endpoint
