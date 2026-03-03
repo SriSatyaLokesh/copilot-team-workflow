@@ -97,14 +97,16 @@ Agents are like hiring a specialist for each phase of work. Each agent file defi
 ├── tdd.agent.md              ← Phase 4: writes tests first, then code
 ├── review.agent.md           ← Reviews code before PR
 ├── verify.agent.md           ← Phase 5: checks Issue is done
-└── api-builder.agent.md      ← Specialist for external API integrations
+├── api-builder.agent.md      ← Specialist for external API integrations
+└── parallel-builder.agent.md ← Orchestrator: dispatches 3+ independent tasks simultaneously
 ```
 
 Example agent frontmatter:
 ```markdown
 ---
-description: 'Discuss a new Issue — defines scope and requirements'
+description: 'Use when starting any new feature, fix, or task — when developer says "I want to build X" or "work on a new issue".'
 name: Discuss
+argument-hint: 'Briefly describe what you want to build (e.g. "add rate limiting to login endpoint")'
 tools: ['search', 'codebase', 'editFiles']
 model: 'gpt-4o'
 handoffs:
@@ -113,6 +115,8 @@ handoffs:
     send: true        ← auto-triggers Research without asking
 ---
 ```
+
+The `argument-hint` field shows placeholder text in the chat input after selecting an agent — so developers know exactly what to type.
 
 The `handoffs` field creates a button in Copilot chat. `send: true` means it fires automatically.
 
@@ -161,12 +165,21 @@ A skill is a folder containing a `SKILL.md` — a detailed reference document th
 
 ```
 .github/skills/
-└── agent-activity-logger/SKILL.md  ← Log format for session audit trail
+├── agent-activity-logger/SKILL.md        ← Log format for session audit trail
+├── doc-reviewer/SKILL.md                 ← Brutal doc review (Critical/Major/Minor + score)
+├── documentation-writer/SKILL.md         ← Diátaxis-guided doc creation (4 types)
+├── playwright-automation-fill-in-form/SKILL.md ← Automate form fill via Playwright MCP
+├── playwright-explore-website/SKILL.md   ← Explore URL, find 3-5 flows, propose tests
+├── playwright-generate-test/SKILL.md     ← Generate TypeScript Playwright spec
+├── receiving-code-review/SKILL.md        ← Evaluate-before-implement pattern
+├── requesting-code-review/SKILL.md       ← Dispatch code-reviewer subagent
+├── subagent-driven-development/SKILL.md  ← Per-task subagent + 2-stage review
+└── test-driven-development/SKILL.md      ← Iron Law TDD, Red-Green-Refactor, rebuttal table
 ```
 
 Skills are different from instructions:
 - **Instructions** → auto-loaded per file type, always active
-- **Skills** → an agent reads them on-demand when it needs specialized knowledge
+- **Skills** → auto-loaded by Copilot when your prompt matches the skill's description (or invoked manually with `/skill-name`). Rich descriptions help Copilot decide when to load them automatically.
 
 > **VS Code team has 11 skills** including one for writing vscode extension tests, one for localization strings, one for accessibility checks.
 
@@ -190,13 +203,17 @@ Hooks let you run shell scripts at specific moments — session start, session e
     └── log-prompt.sh
 ```
 
-The `hooks.json` defines when each script runs:
+The `hooks.json` defines when each script runs. VS Code uses **PascalCase** event names:
 ```json
 {
-  "version": 1,
   "hooks": {
-    "sessionEnd": [
-      { "type": "command", "bash": ".github/hooks/session-auto-commit/auto-commit.sh" }
+    "Stop": [
+      {
+        "type": "command",
+        "command": ".github/hooks/session-auto-commit/auto-commit.sh",
+        "windows": "powershell -ExecutionPolicy Bypass -File .github/hooks/session-auto-commit/auto-commit.ps1",
+        "timeout": 30
+      }
     ]
   }
 }
@@ -206,9 +223,13 @@ Available events:
 
 | Event | When it fires |
 |:---|:---|
-| `sessionStart` | runs when agent session opens |
-| `sessionEnd` | runs when agent session closes |
-| `userPromptSubmitted` | runs on every prompt |
+| `SessionStart` | runs when agent session opens |
+| `Stop` | runs when agent session closes |
+| `UserPromptSubmit` | runs on every prompt |
+| `PreToolUse` | runs before any tool is invoked |
+| `PostToolUse` | runs after any tool completes |
+
+> **Windows note**: Use the `windows` property for PowerShell overrides. Use `command` for bash/default.
 
 ---
 

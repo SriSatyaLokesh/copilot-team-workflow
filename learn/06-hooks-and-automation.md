@@ -17,13 +17,15 @@ Hooks are shell scripts that Copilot runs automatically at specific moments duri
 
 Think of them as event listeners for your AI sessions.
 
-**Available events**:
+**Available events** (VS Code uses **PascalCase**):
 
 | Event | When it fires |
 |:---|:---|
-| `sessionStart` | Copilot coding agent session opens |
-| `sessionEnd` | Copilot coding agent session closes |
-| `userPromptSubmitted` | Developer sends any prompt |
+| `SessionStart` | Copilot agent session opens |
+| `Stop` | Copilot agent session closes |
+| `UserPromptSubmit` | Developer sends any prompt |
+| `PreToolUse` | Before any tool is invoked |
+| `PostToolUse` | After any tool completes |
 
 This repo includes two pre-built hooks:
 1. **session-auto-commit** — saves your work automatically when a session ends
@@ -50,21 +52,23 @@ Each hook is a folder in `.github/hooks/` with:
     └── log-prompt.sh
 ```
 
-The `hooks.json` format:
+The `hooks.json` format (VS Code PascalCase — `Stop` is the session-end event):
 ```json
 {
-  "version": 1,
   "hooks": {
-    "sessionEnd": [
+    "Stop": [
       {
         "type": "command",
-        "bash": ".github/hooks/session-auto-commit/auto-commit.sh",
-        "timeoutSec": 30
+        "command": ".github/hooks/session-auto-commit/auto-commit.sh",
+        "windows": "powershell -ExecutionPolicy Bypass -File .github/hooks/session-auto-commit/auto-commit.ps1",
+        "timeout": 30
       }
     ]
   }
 }
 ```
+
+> **Windows**: The `windows` property overrides `command` on Windows — add a `.ps1` equivalent for each `.sh` script.
 
 > Hooks only activate once the `.github/hooks/` folder is committed to the **default branch** of the repo.
 

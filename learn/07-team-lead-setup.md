@@ -36,7 +36,13 @@ Or use this repo as a template via GitHub: **"Use this template" → Create new 
 
 ### Step 2: Update copilot-instructions.md (20 min)
 
-Open `.github/copilot-instructions.md` and fill in:
+Open `.github/copilot-instructions.md` and complete the **SETUP REQUIRED** checklist at the top of the file:
+
+1. Replace `[Project Name]` in the heading
+2. Replace the `Stack:` line with your actual stack
+3. Fill in `## Conventions` with project-specific rules
+
+**Fastest way for Step 3**: Type `/init` in Copilot Chat — it analyzes your workspace and generates tailored `## Conventions` content automatically.
 
 ```markdown
 # [Your Project Name] — GitHub Copilot Configuration
@@ -116,13 +122,32 @@ mkdir -p logs/copilot
 echo "logs/" >> .gitignore
 ```
 
-### Step 7: Brief the team (30 min)
+### Step 7: Configure VS Code workspace settings (5 min)
+
+Create or update `.vscode/settings.json` in the project:
+
+```json
+{
+  "github.copilot.chat.codeGeneration.useInstructionFiles": true,
+  "chat.promptFilesLocations": [".github/prompts"],
+  "chat.instructionsFilesLocations": [".github/instructions"],
+  "chat.promptFilesRecommendations": {
+    "start-issue": true,
+    "debug": true
+  }
+}
+```
+
+`chat.promptFilesRecommendations` surfaces `/start-issue` as a suggested action every time a developer opens a new chat — so they can't accidentally skip to coding without going through the workflow.
+
+### Step 8: Brief the team (30 min)
 
 Run a 30-minute session covering:
 1. Read `learn/00-introduction.md` together
-2. Demo: start a new Issue using `/discuss`
+2. Demo: start a new Issue using `/start-issue` — show how it creates the branch *before* anything else
 3. Show where docs live and how to find the right template
 4. Explain the one rule: **always read the Issue doc when resuming work**
+5. Show the `argument-hint` in action — when selecting an agent in chat, Copilot shows placeholder text for what to type
 
 ---
 

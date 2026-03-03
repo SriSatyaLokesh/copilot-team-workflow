@@ -152,6 +152,8 @@ issue-042 feat: admin bypass (red→green)
 **Agent used**: `tdd.agent.md`
 **Output**: Working code, Phase 4 progress tracker updated
 
+> **3 or more independent tasks?** Use `parallel-builder.agent.md` instead. It checks which tasks are truly independent, dispatches them to TDD Implementer subagents simultaneously, then integrates the results and runs the full test suite. Only use this when tasks touch completely different files — shared files = hidden dependencies = merge conflicts.
+
 ---
 
 ### Phase 5 — Verify (`/verify`)
