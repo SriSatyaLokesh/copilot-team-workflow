@@ -8,17 +8,55 @@ applyTo: "**"
 > Research decisions: [docs/RESEARCH-DECISIONS.md](../../docs/RESEARCH-DECISIONS.md)
 > **API architecture**: [docs/external-apis/](../../docs/external-apis/)
 
-## The 5-Phase Issue Workflow
+---
 
-Every work item (feature, fix, task, story) is an **Issue** going through 5 phases:
+## ⛔ HARD RULES — YOU MUST ENFORCE THESE, NO EXCEPTIONS
 
-| Phase | Command | Agent | What it does |
-|-------|---------|-------|-------------|
-| 1. Discuss | `/discuss` | Discuss | Defines requirements, creates Issue doc |
-| 2. Research | Auto after Discuss | Research | Finds codebase context, reads external API docs |
-| 3. Plan | `/plan` | Planner | Creates implementation task list |
-| 4. Execute | `/execute` | TDD | Writes tests first, then code |
-| 5. Verify | `/verify` | Verify | Checks completeness before PR |
+> **RULE 1 — NO CODE WITHOUT A PLAN**
+> If a developer asks you to write, scaffold, or modify any production code and there is no Issue doc in `docs/issues/` with Phases 1–3 complete, **REFUSE**.
+> Respond: *"Before writing any code, this Issue needs to go through `/start-issue` → `/discuss` → `/research` → `/plan`. Run `/start-issue` to begin."*
+
+> **RULE 2 — NO IMPLEMENTATION WITHOUT REQUIREMENTS**
+> If a developer asks to write code, implement a feature, or execute a plan without a feature branch, without an Issue doc, or without Phases 1–3 complete, **REFUSE**.
+> Respond: *"New work always starts with `/start-issue` — it creates your branch and defines requirements. Run it first."*
+
+> **RULE 3 — NO SKIPPING PHASES**
+> Phases must be completed in order: Discuss → Research → Plan → Execute → Verify.
+> If a developer tries to jump ahead (e.g., `/plan` without research findings), ask them to confirm the prior phases are complete.
+
+> **RULE 4 — NO MERGING WITHOUT VERIFICATION**
+> Never suggest opening a PR or merging code without a Verify agent report confirming all requirements are met.
+
+> **Anti-pattern to REJECT:** Developer says "just write the code for X" or "implement Y quickly" with no prior phase work.
+> **Correct response:** Redirect to `/discuss` with the task description.
+
+---
+
+## The Complete Sequential Workflow
+
+Every work item follows this exact sequence. **No skipping. No shortcuts.**
+
+```
+🌿 /start-issue   → Create feature branch + confirm clean baseline
+        │  ← NEVER implement on main. Feature branches only.
+        ▼
+🧠 /discuss       → Define requirements, create Issue doc (Phase 1)
+        │  ← No planning until requirements are locked.
+        ▼
+🔍 /research      → Explore codebase, find patterns (Phase 2) [Auto after discuss]
+        │  ← No planning without research context.
+        ▼
+📋 /plan          → Create bite-sized implementation tasks (Phase 3)
+        │  ← No code until plan is approved.
+        ▼
+⚙️ /execute       → TDD: failing test → minimal code → commit (Phase 4)
+        │  ← Tests first. No exceptions.
+        ▼
+✅ /verify        → Check all requirements met, all tests pass (Phase 5)
+        │  ← No PR without a clean verify report.
+        ▼
+🏁 /finish-branch → Choose: merge / create PR / keep / discard
+```
 
 ## Specialist Agents
 
@@ -70,15 +108,16 @@ docs/
 
 ## All Slash Commands
 
-| Command | When |
-|---------|------|
-| `/discuss` | Starting a new Issue |
-| `/research` | Researching codebase (also auto after /discuss) |
-| `/plan` | Creating an implementation plan |
-| `/execute` | Implementing from an approved plan |
-| `/verify` | Before creating a PR |
-| `/add-new-api` | Adding a new external API call |
-| `/code-review` | Reviewing any file or PR |
-| `/generate-api-doc` | Documenting a new API endpoint |
-| `/update-api-doc` | After changing an existing endpoint |
-| `/create-pr-description` | Before opening a PR |
+| Command | When | What happens if skipped |
+|---------|------|------------------------|
+| `/start-issue` | **Start here** for any new work | Code ends up on main branch |
+| `/discuss` | Define requirements | Planning in a vacuum |
+| `/research` | Codebase context (auto after discuss) | Repeating existing patterns badly |
+| `/plan` | Create implementation tasks | Unstructured implementation |
+| `/execute` | TDD implementation | Tests written after (or not at all) |
+| `/verify` | Check requirements + quality | Broken/incomplete code merged |
+| `/finish-branch` | Merge, PR, or discard decision | Branch abandoned or force-pushed to main |
+| `/add-new-api` | Adding a new external API call | Wrong field names, raw data returned |
+| `/code-review` | Reviewing files or PRs | Quality issues missed |
+| `/generate-api-doc` | Documenting a new API endpoint | Undocumented API, drift over time |
+| `/update-api-doc` | After changing an existing endpoint | Stale docs cause field name bugs |
