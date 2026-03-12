@@ -1,16 +1,15 @@
 ---
-description: 'Use when executing an approved implementation plan from an Issue doc — when a developer says "execute the plan", "start implementing", or "begin the tasks". Requires Phase 3 (Plan) to be complete. Handles both single-agent sequential tasks and signals when parallel dispatching is needed.'
-agent: 'TDD Implementer'
+description: 'Use when executing an approved implementation plan — when a developer says "execute the plan", "start implementing", or "begin the tasks". Requires Phase 3 (Plan) to be complete. Offers choice between TDD agent execution or delegating to Copilot agent mode for heavy lifting, then returning to structured verification.'
 tools: ['editFiles', 'terminal', 'search', 'codebase', 'problems']
 model: 'claude-sonnet-4-5'
 ---
 # Execute Implementation Plan
 
-**Issue doc**: ${input:ISSUE-doc:Path to Issue doc (e.g., docs/issues/ISSUE-042-name.md)}
+**Work folder**: ${input:work-folder:Path to work folder (e.g., work/ISSUE-042-name)}
 
 ## Step 1 — Load and Review Plan
 
-Read Phase 3 of the Issue doc. Review critically:
+Read `plan.md` from the work folder. Review Phase 3 critically:
 - Are there gaps or ambiguities in any task?
 - Are task dependencies clear?
 - Are verification commands specified?
@@ -19,51 +18,173 @@ If concerns exist: raise them before starting. If clear: proceed.
 
 ## Step 2 — Choose Execution Mode
 
-**Read all tasks first, then decide:**
+Ask the developer to choose:
 
-| Mode | When to use |
-|:---|:---|
-| **Sequential (default)** | Tasks depend on each other, or fewer than 3 tasks total |
-| **Parallel dispatch** | 3+ tasks that are fully independent (different files, different subsystems, no shared state) |
+### **Mode A: Agent Mode (Recommended for complex features)**
+Hand off to GitHub Copilot agent mode for implementation:
+- ✅ Full context awareness
+- ✅ Multi-file editing
+- ✅ Natural TDD workflow
+- ✅ Can ask clarifying questions
+- ✅ Returns when done
 
-> **Parallel example:** Task A (auth service), Task B (notifications), Task C (analytics logging) — these touch completely different code, run them in parallel.
->
-> **Sequential example:** Task 1 = create DB schema, Task 2 = write service using schema — Task 2 depends on Task 1. Must be sequential.
->
-> See [parallel-agents guide](../instructions/parallel-agents.instructions.md) for the full pattern.
+After completion, you return to this flow for `/verify`.
 
-## Step 3 — Execute in Batches of 3
+### **Mode B: TDD Agent (For simple, structured tasks)**
+Use the TDD Implementer agent:
+- ✅ Strict TDD enforcement
+- ✅ Batch-based commits
+- ✅ Built-in code review checkpoints
+- ✅ Automated progress tracking
 
-For each batch of 3 tasks (sequential mode):
+---
 
-1. **For each task:**
-   - 🔴 **RED**: Write the failing test first — run `npm test`, confirm it fails
-   - 🟢 **GREEN**: Write minimal code to pass — run `npm test`, confirm it passes
-   - 🔵 **REFACTOR**: Clean up — run `npm test`, confirm still green
-   - **Commit**: `git commit -m "feat: [task description]"`
-   - Update Phase 4 progress in Issue doc
+## If Developer Chooses: Mode A (Agent Mode)
 
-2. **After every 3 tasks — checkpoint review:**
-   ```
-   Batch complete. Requesting code review before continuing.
-   ```
-   Invoke the Reviewer agent: *"Review the latest 3 tasks. Check for correctness, security, and standards alignment."*
+### Step 2A — Prepare Context Bundle
 
-3. **Address review findings:**
-   - 🔴 Critical → fix before next batch starts
-   - 🟡 Warning → fix before `/verify`
-   - 🔵 Suggestion → note in Issue doc
+Create a comprehensive prompt for agent mode:
 
-4. Continue next batch.
+```markdown
+# Implementation Task
 
-## Step 4 — Final Quality Gate
+**Work Folder**: ${input:work-folder}
+**Branch**: [current branch from git branch --show-current]
+**GitHub Issue**: [parse from work folder name if exists]
 
-After all tasks and reviews:
+## Requirements (from plan.md Phase 1)
+[paste Phase 1 requirements]
 
-```bash
-npm test               # All tests must pass
-npx tsc --noEmit       # No TypeScript errors
-npm run lint           # No lint errors
+## Research Context (from plan.md Phase 2)
+[paste Phase 2 findings - existing patterns, files to modify]
+
+## Implementation Plan (from plan.md Phase 3)
+[paste Phase 3 task breakdown]
+
+## Your Task
+Implement all tasks from Phase 3 using test-driven development:
+- Write failing test first
+- Implement minimal code to pass
+- Refactor if needed
+- Commit after each logical unit
+
+## Quality Standards
+- All tests must pass
+- No TypeScript/lint errors
+- Follow conventions in docs/codebase/conventions.md
+- Update result.md Phase 4 as you work
+
+## File Locations
+- Plan: ${input:work-folder}/plan.md
+- Results: ${input:work-folder}/result.md (update Phase 4 here)
+- Code: [from research findings]
+
+## When Complete
+1. Update ${input:work-folder}/result.md Phase 4 with:
+   - What was implemented
+   - Any deviations from plan
+   - All commits made
+2. Run full test suite: `npm test`
+3. Say: "Implementation complete. Ready for /verify"
+
+## Start Here
+[First task from Phase 3]
 ```
 
-Then say: *"All tasks complete. Run `/verify` to check completeness before creating a PR."*
+### Step 2B — Display and Hand Off
+
+Show the bundled prompt to the developer and say:
+
+> "📋 **Context bundle prepared for agent mode.**
+>
+> **Next steps:**
+> 1. Open a **new chat** (Ctrl+L / Cmd+L)
+> 2. Paste the context bundle above
+> 3. Let agent mode implement everything
+> 4. When it says "Ready for /verify", come back here and run `/verify ${input:work-folder}`
+>
+> **Why a new chat?** Keeps execution context clean. Agent mode works best in fresh sessions.
+>
+> **Alternative:** Copy the bundle and reply 'implement this' in agent mode directly."
+
+**STOP HERE.** Wait for developer to complete implementation and return.
+
+---
+
+## If Developer Chooses: Mode B (TDD Agent)
+
+### Step 2B — Hand off to TDD Implementer Agent
+
+Invoke the **TDD Implementer agent** with:
+```
+@tdd ${input:work-folder}
+```
+
+The TDD agent will:
+- Read the plan
+- Verify you're not on main branch
+- Execute tasks in TDD cycle (Red → Green → Refactor)
+- Update result.md Phase 4
+- Commit after each task
+- Offer PR creation when done
+
+---
+
+## After Either Mode Completes
+
+Run:
+```bash
+git status              # Check what changed
+npm test               # Verify all tests pass
+```
+
+Then proceed to:
+```
+/verify ${input:work-folder}
+```
+
+The Verify agent will check requirements, test coverage, and code quality before offering to create/merge the PR.
+
+---
+
+## Why Two Modes?
+
+| Feature | Agent Mode | TDD Agent |
+|---------|-----------|-----------|
+| **Best for** | Complex features, exploration | Well-defined tasks, learning TDD |
+| **Context** | Full workspace awareness | Focused on plan |
+| **Flexibility** | Can adapt mid-implementation | Strict TDD discipline |
+| **Commits** | Developer decides | Automatic after each task |
+| **Review** | At the end | Every 3 tasks |
+| **Learning** | Production speed | TDD training |
+
+**Recommendation**: Try **Agent Mode** for your first few issues. Once you understand the patterns, use **TDD Agent** for routine work where strict discipline is valuable.
+
+---
+
+## Troubleshooting
+
+### "I chose Agent Mode but got stuck"
+- Save your work: `git add . && git commit -m "WIP: partial implementation"`
+- Come back and run `/verify` to see what's missing
+- Or switch to TDD agent: `@tdd ${input:work-folder}` (it will continue from where you stopped)
+
+### "Agent Mode completed but I'm not sure what changed"
+```bash
+git diff HEAD~5  # See last 5 commits' changes
+git log --oneline -10  # See commit history
+```
+
+### "TDD Agent is too slow"
+- Switch to Agent Mode mid-stream (it's fine!)
+- Agent Mode is faster for bulk implementation
+
+---
+
+## Next Steps
+
+After execution completes (whichever mode you chose):
+1. Ensure all tests pass: `npm test`
+2. Update `result.md` Phase 4 if not already done
+3. Run `/verify ${input:work-folder}` for quality gate
+4. If verification passes → PR creation offered automatically
