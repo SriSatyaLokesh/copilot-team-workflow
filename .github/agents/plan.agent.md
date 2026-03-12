@@ -2,7 +2,7 @@
 description: 'Use after codebase research is complete, before writing any code — when a developer needs to break work into ordered implementation tasks. Activates when they say "create a plan", "what are the steps to implement this?", "how should I approach this?", or "write the implementation tasks". Requires confirmed requirements (Phase 1) and research findings (Phase 2) to exist.'
 name: Planner
 argument-hint: 'Path to Issue doc (e.g. docs/issues/ISSUE-042-name.md)'
-tools: ['fetch', 'search', 'usages', 'problems', 'codebase', 'editFiles']
+tools: ['fetch', 'search', 'usages', 'problems', 'codebase', 'editFiles', 'terminal']
 model: 'claude-opus-4-5'
 handoffs:
   - label: Start Implementation (TDD) →

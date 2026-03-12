@@ -2,7 +2,7 @@
 description: 'Use when starting any new feature, fix, task, or story — when a developer says "I want to build X", "add Y", "fix Z", or "work on a new issue" and no Issue doc exists yet. Activates before requirements are defined, before any plan is created, before any code is written. Required first step for any new work item.'
 name: Discuss
 argument-hint: 'Briefly describe what you want to build (e.g. "add rate limiting to login endpoint")'
-tools: ['search', 'fetch', 'codebase', 'editFiles']
+tools: ['search', 'fetch', 'codebase', 'editFiles', 'terminal']
 model: 'gpt-4o'
 handoffs:
   - label: Start Research →
