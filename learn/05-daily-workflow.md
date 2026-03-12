@@ -39,9 +39,11 @@ This is always the first action. Enter the issue description and issue ID when p
 - Check `.github/copilot-instructions.md` for your **primary branch** (`dev`, `develop`, `main`, etc.)
 - If not set, ask you once: *"What is your team's primary branch?"* and save it permanently
 - Show your current branch and ask: **A) Stay here** or **B) Create fresh branch from primary**
-- If B: pull the latest from primary and create `issue/issue-042-login-rate-limiting`
+- If B: pull the latest from primary and create `<type>/042-login-rate-limiting`
 - Run `npm test` to confirm baseline is green
-- Create the Issue doc at `docs/issues/issue-042-login-rate-limiting.md`
+- Create the work folder at `work/ISSUE-042-login-rate-limiting/` with `plan.md` and `result.md` templates
+- (If GitHub repo) Offer to create GitHub issue with `gh issue create`
+- Append entry to `logs/copilot/agent-activity.log`
 - Hand off to the **Discuss** agent
 
 > **Never manually `git checkout -b` before defining requirements.** Let `/start-issue` create the branch — it ensures you're always branching from the freshest version of your primary branch.
@@ -57,30 +59,36 @@ Answer Discuss's focused questions — it takes about 10 minutes to lock in clea
 
 **Step 3**: Discuss finishes → **Research** auto-starts
 
-Copilot scans the codebase and finds relevant files and existing patterns.
+Copilot scans the codebase and finds relevant files and existing patterns. Updates `work/ISSUE-042-login-rate-limiting/plan.md` Phase 2.
 
-**Step 4**: Review research findings, click **"Create Plan →"**
+**Step 4**: Review research findings, run `/plan`
 
-The Planner creates a task checklist. Review each item — if anything looks wrong or is missing, say so now.
+The Planner creates a task checklist in Phase 3. Review each item — if anything looks wrong or is missing, say so now.
 
-**Step 5**: Approve the plan, click **"Start Implementation (TDD) →"**
+**Step 5**: Approve the plan, run `/execute work/ISSUE-042-login-rate-limiting`
 
-The TDD agent writes tests first, then implementation, committing as it goes.
+Choose execution mode:
+- **Mode A (Agent Mode)**: Copy context bundle to new chat, implement, return to `/verify` (best for complex features)
+- **Mode B (TDD Agent)**: Strict Red-Green-Refactor in same chat (best for routine work)
 
-**Step 6**: Implementation finishes → run `/verify`
+Whichever mode completes: updates `result.md` Phase 4, optionally creates GitHub PR.
 
-The Verify agent checks all requirements, tests, and docs — pass/fail report.
+**Step 6**: Implementation finishes → run `/verify work/ISSUE-042-login-rate-limiting`
 
-**Step 7**: Fix anything caught, then create the PR via `/finish-branch`.
+The Verify agent checks all requirements, tests, and docs — pass/fail report. Updates `result.md` Phase 5.
+
+**Step 7**: Fix anything caught, then use `/finish-branch` to merge or create PR.
+
+If GitHub repo: Offers to merge PR automatically with `gh pr merge`.
 
 ---
 
 ## Resuming Work the Next Day
 
-The most important habit: **tell Copilot to read the Issue doc FIRST**.
+The most important habit: **tell Copilot to read the work folder FIRST**.
 
 ```
-"Continue issue-042. Read #docs/issues/issue-042-login-rate-limiting.md first."
+"Continue ISSUE-042. Read work/ISSUE-042-login-rate-limiting/plan.md and result.md first."
 ```
 
 Copilot reads:
@@ -139,14 +147,14 @@ Copilot reads the git diff and updates `docs/apis/` for you.
 **Commit format**:
 
 ```
-issue-042 feat: add rate limiting to login endpoint
+feat: add rate limiting to login endpoint Fixes #42
 
 Updated:
 - docs/apis/auth/login.api.md (added 429 response, rate limit rules)
-- docs/issues/issue-042-login-rate-limiting.md (Phase 4 progress)
+- work/ISSUE-042-login-rate-limiting/result.md (Phase 4 progress)
 ```
 
-Code and docs in the **same commit**, always.
+Code and docs in the **same commit**, always. GitHub issue reference links commit to issue.
 
 ---
 
@@ -181,12 +189,12 @@ The reviewer runs `/code-review` on the PR files for a systematic multi-dimensio
 **One Copilot session per Issue.** When you switch Issues, start a fresh chat session.
 
 ```
-# Finishing issue-042
-/verify → passed → open PR → done for now
+# Finishing ISSUE-042
+/verify → passed → merge or open PR → done for now
 
-# Starting issue-043
+# Starting ISSUE-043
 [New Copilot Chat session]
-"Continue issue-043. Read #docs/issues/issue-043-export-orders.md first."
+"Continue ISSUE-043. Read work/ISSUE-043-export-orders/plan.md and result.md first."
 ```
 
 Mixing issues in one session causes context bleed — Copilot starts mixing requirements from different Issues.
@@ -197,15 +205,15 @@ Mixing issues in one session causes context bleed — Copilot starts mixing requ
 
 | Situation | Command |
 |:---|:---|
-| Starting a new Issue | `/start-issue` (creates branch + baseline first) |
-| Resuming an issue | "Read #docs/issues/issue-xxx.md first" |
+| Starting a new Issue | `/start-issue` (creates branch + work folder) |
+| Resuming an issue | "Read work/ISSUE-XXX/plan.md and result.md first" |
 | Check current progress | `/status` |
-| End of session | `/summarize` (save context to Issue doc) |
+| End of session | `/summarize` (save context to work folder) |
 | Planning code | `/plan` |
-| Implementing | `/execute` |
+| Implementing | `/execute work/ISSUE-XXX` (choose Mode A or B) |
 | Adding external API | `/add-new-api` |
 | Reviewing code | `/code-review` |
-| Before PR | `/verify` → `/finish-branch` |
+| Before PR | `/verify work/ISSUE-XXX` → `/finish-branch` |
 | Changed endpoint | `/update-api-doc` |
 | New endpoint | `/generate-api-doc` |
 | After refactoring | `/sync-docs` (bulk doc updates) |
@@ -222,14 +230,15 @@ Morning:
 
 During work:
 □ One session per Issue
-□ Tests before implementation (TDD agent handles this)
-□ Commit small: one test + one implementation per commit
+□ Tests before implementation (TDD agent handles this in Mode B)
+□ Commit with GitHub issue reference: "feat: <description> Fixes #XX"
 □ Changed an external API call → update the external API doc first
 
 End of day:
 □ npm test — all green?
 □ git push
-□ Update Phase 4 progress tracker in Issue doc manually if needed
+□ /summarize (save session context to work folder)
+□ Update result.md Phase 4 progress if needed
 □ (Session auto-commit hook runs automatically when session ends)
 ```
 
@@ -240,7 +249,7 @@ End of day:
 ❌ Configure Copilot before each session (instructions load automatically)              
 ❌ Explain your architecture in every prompt (instructions carry it)             
 ❌ Remember external API field names (external API docs carry them)              
-❌ Write PR descriptions manually (ask Copilot "Write a PR description from the Issue doc")              
+❌ Write PR descriptions manually (GitHub CLI creates PRs with issue reference)              
 ❌ Manually commit at session end (session-auto-commit hook does it)                 
 
 **Next: Hooks and Automation →** [06-hooks-and-automation.md](./06-hooks-and-automation.md)
@@ -250,7 +259,8 @@ End of day:
 ## Further Reading
 
 - [Git branching strategies](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow) — the branch-per-issue pattern this workflow uses
-- [Conventional Commits](https://www.conventionalcommits.org/) — the ``issue-042 feat:`` commit format explained
+- [Conventional Commits](https://www.conventionalcommits.org/) — the `feat:` commit format explained
+- [GitHub CLI](https://cli.github.com/) — the `gh` command used for issue/PR automation
 - [VS Code Copilot — Slash Commands](https://code.visualstudio.com/docs/copilot/copilot-chat#_slash-commands) — how prompt files become slash commands
 ---
 

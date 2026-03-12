@@ -1,4 +1,4 @@
-# GitHub Copilot Team Workflow — Boilerplate
+# GitHub Copilot Team Workflow — Boilerplate (V2)
 
 A production-ready `.github/` configuration that turns GitHub Copilot into a structured, consistent AI development partner for your team.
 
@@ -6,10 +6,17 @@ A production-ready `.github/` configuration that turns GitHub Copilot into a str
 - 8 specialist agents (Discuss, Research, Planner, TDD, Reviewer, Verify, ApiBuilder, ParallelBuilder)
 - 15 slash command prompts (`/start-issue`, `/discuss`, `/research`, `/plan`, `/execute`, `/verify`, `/debug`, `/add-new-api`, `/finish-branch`, `/generate-api-doc`, `/update-api-doc`, `/receive-review`, `/status`, `/sync-docs`, `/summarize`)
 - Auto-loading instructions per file type (architecture rules, commenting standards, doc-on-change)
+- 11 auto-loading skills (TDD, doc-reviewer, GitHub CLI workflow, Playwright, code review patterns)
 - Playwright testing skills and instructions
 - Session hooks (auto-commit + structured activity log)
 - 9 documentation templates + 7 codebase knowledge templates
+- GitHub CLI integration (automatic issue/PR creation and merge)
+- Work folder structure (`work/ISSUE-XXX-name/`) to prevent merge conflicts
+- Activity logging (`logs/copilot/agent-activity.log`) for audit trail
+- Dual-mode execution (Agent Mode for complex features, TDD Agent for routine work)
 - A 11-part beginner-friendly learn series in `learn/` (at repo root — not copied on install)
+
+> **What's New in V2** (March 2026): Work folder structure, GitHub CLI integration, dual-mode execution, fixed agent handoff chain, activity logging. See [MIGRATION-V2.md](./docs/MIGRATION-V2.md) for upgrade guide.
 
 > **Learn more**: Start with [`learn/00-introduction.md`](./learn/00-introduction.md) or read it as a website: **[srisatyalokesh.github.io/copilot-team-workflow](https://srisatyalokesh.github.io/copilot-team-workflow)**
 
@@ -30,15 +37,15 @@ git clone https://github.com/SriSatyaLokesh/copilot-team-workflow.git copilot-bo
 Copy-Item -Recurse copilot-boilerplate\.github .\
 Get-ChildItem copilot-boilerplate\docs -Exclude 'learn' | Copy-Item -Destination .\docs -Recurse -Force
 
-# Create required local log folders (never committed)
-New-Item -ItemType Directory -Force logs\copilot
+# Create required local folders (logs and work folders never committed)
+New-Item -ItemType Directory -Force logs\copilot, work
 
 # Make hook scripts executable (if using WSL/Git Bash)
 # git update-index --chmod=+x .github/hooks/session-auto-commit/auto-commit.sh
 # git update-index --chmod=+x .github/hooks/session-logger/*.sh
 
 # Add logs folder to .gitignore
-Add-Content .gitignore "`nlogs/"
+Add-Content .gitignore "`nlogs/`nwork/"
 
 # Clean up
 Remove-Item -Recurse -Force copilot-boilerplate
@@ -62,15 +69,15 @@ git clone https://github.com/SriSatyaLokesh/copilot-team-workflow.git copilot-bo
 cp -r copilot-boilerplate/.github ./
 rsync -av --exclude='learn/' copilot-boilerplate/docs/ ./docs/ 2>/dev/null || { cp -r copilot-boilerplate/docs ./ && rm -rf docs/learn; }
 
-# Create required local log folders (never committed)
-mkdir -p logs/copilot
+# Create required local folders (logs and work folders never committed)
+mkdir -p logs/copilot work
 
 # Make hook scripts executable
 chmod +x .github/hooks/session-auto-commit/auto-commit.sh
 chmod +x .github/hooks/session-logger/*.sh
 
-# Add logs folder to .gitignore
-echo "logs/" >> .gitignore
+# Add logs and work folders to .gitignore
+echo -e "logs/\nwork/" >> .gitignore
 
 # Clean up
 rm -rf copilot-boilerplate
@@ -156,7 +163,7 @@ Everything else works out of the box.
 │   ├── discuss.prompt.md                ← /discuss (define requirements)
 │   ├── research.prompt.md               ← /research (find existing patterns)
 │   ├── plan.prompt.md                   ← /plan (create implementation tasks)
-│   ├── execute.prompt.md                ← /execute (TDD implementation)
+│   ├── execute.prompt.md                ← /execute (dual-mode: Agent Mode or TDD Agent)
 │   ├── verify.prompt.md                 ← /verify (check completeness)
 │   ├── debug.prompt.md                  ← /debug (troubleshooting)
 │   ├── add-new-api.prompt.md            ← /add-new-api (external API integration)
@@ -174,6 +181,7 @@ Everything else works out of the box.
 │   ├── agent-activity-logger/SKILL.md   ← Log format reference
 │   ├── doc-reviewer/SKILL.md            ← Brutal doc review (Critical/Major/Minor)
 │   ├── documentation-writer/SKILL.md    ← Diátaxis-guided doc creation
+│   ├── github-cli-workflow/SKILL.md     ← GitHub issue/PR automation patterns
 │   ├── playwright-automation-fill-in-form/SKILL.md
 │   ├── playwright-explore-website/SKILL.md
 │   ├── playwright-generate-test/SKILL.md
@@ -185,13 +193,19 @@ Everything else works out of the box.
     ├── session-auto-commit/             ← Auto-commit on session end (Stop)
     └── session-logger/                  ← JSON audit log (SessionStart/Stop/UserPromptSubmit)
 
-learn/                               ← 10-part beginner guide (standalone, not copied on install)
+learn/                               ← 11-part beginner guide (standalone, not copied on install)
+work/                                ← Active issue work folders (gitignored, local only)
+logs/                                ← Activity logs (gitignored, local only)
 docs/
+├── MIGRATION-V2.md                      ← Upgrade guide from V1 to V2
 ├── MODEL-SELECTION.md                   ← Model assignment rationale (GPT-4o, Claude, Haiku)
 ├── templates/                           ← Copy-paste starters for every doc type
+│   ├── plan-template.md                 ← Template for work/ISSUE-XXX/plan.md
+│   ├── result-template.md               ← Template for work/ISSUE-XXX/result.md
+│   └── ...
 ├── codebase/                            ← Factual codebase knowledge (Arch, Stack, etc.)
 ├── external-apis/                       ← Fill in: one folder per external API
-├── issues/                              ← Fill in: one doc per work item
+├── issues/                              ← (Deprecated in V2) Example issue docs only
 ├── apis/                                ← Fill in: one doc per endpoint
 └── flows/                               ← Fill in: one doc per user journey
 ```

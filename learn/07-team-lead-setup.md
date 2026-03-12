@@ -69,7 +69,9 @@ Stack: [Node.js + TypeScript + Express + PostgreSQL | Next.js + Prisma | etc.]
 - [Project Overview](https://github.com/SriSatyaLokesh/copilot-team-workflow/blob/main/docs/project.md)
 - [API Architecture](../learn/03-api-architecture.md)
 - [External APIs](https://github.com/SriSatyaLokesh/copilot-team-workflow/blob/main/docs/external-apis/)
-- [Active Issues](https://github.com/SriSatyaLokesh/copilot-team-workflow/blob/main/docs/issues/)
+- [Active Work Folders](https://github.com/SriSatyaLokesh/copilot-team-workflow/tree/main/work) (gitignored — local only)
+- [Activity Logs](https://github.com/SriSatyaLokesh/copilot-team-workflow/tree/main/logs/copilot) (gitignored — local only)
+- [Example Issue Docs](https://github.com/SriSatyaLokesh/copilot-team-workflow/tree/main/docs/issues) (templates and examples)
 
 ## Conventions
 Primary branch: dev
@@ -200,7 +202,7 @@ The most common problems and fixes:
 |:---|:---|:---|
 | Copilot not following architecture rules | Instructions not scoped to right files | Check `applyTo` glob in the instruction frontmatter |
 | Agent giving wrong field names | External API doc not filled in | Document the entity in `docs/external-apis/` |
-| Context lost between sessions | Developer not reading issue doc | Make it a team habit: every session starts with "Read #docs/issues/..." |
+| Context lost between sessions | Developer not reading work folder | Make it a team habit: every session starts with "Read work/ISSUE-XXX/plan.md and result.md" |
 | Sessions not auto-committing | Hook not installed or not on default branch | Check `.github/hooks/` is committed to main |
 | `/start-issue` keeps asking for primary branch | `Primary branch:` line missing from `copilot-instructions.md` | Add `Primary branch: dev` (or your branch) to the `## Conventions` section |
 
@@ -223,7 +225,7 @@ Tech leads own the system. Developers own the content.
 
 For a team of 5–10 developers working on 3–5 Issues simultaneously:
 
-1. **Branch naming**: `issue/issue-xxx-kebab-name` — consistent and searchable
+1. **Branch naming**: `<type>/XXX-kebab-name` — consistent and searchable (e.g., `feat/042-login-rate-limiting`)
 2. **Issue doc per developer**: own your Issue doc — don't edit others
 3. **Team notes folder**: `docs/team-notes/[your-name]/` — personal scratch space, no conflicts
 4. **External API docs**: team lead owns these — reviewed before wrapper code is written

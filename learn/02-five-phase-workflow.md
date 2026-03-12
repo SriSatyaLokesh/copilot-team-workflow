@@ -55,16 +55,19 @@ The 5-phase workflow prevents this. Every piece of work — feature, bug fix, im
 **What it does**:
 1. **Checks for a stored primary branch** in `.github/copilot-instructions.md`. If missing, asks once: *"What is your team's primary branch?"* (e.g. `dev`, `develop`, `main`) and writes the answer permanently — so future sessions never ask again.
 2. **Shows current branch**, then asks: **A) Stay here** (already on right feature branch) or **B) Create new branch from primary** (for fresh work)
-3. If B: `git checkout <primary> && git pull origin <primary> && git checkout -b issue/[issue-id]-[slug]`
+3. If B: `git checkout <primary> && git pull origin <primary> && git checkout -b <type>/[issue-id]-[slug]`
 4. Runs `npm test` — confirms baseline is green before any new work
-5. Creates the Issue doc at `docs/issues/[issue-id]-[slug].md`
-6. Hands off to the **Discuss** agent
+5. Creates work folder at `work/ISSUE-[id]-[slug]/` with `plan.md` and `result.md` templates
+6. (If GitHub repo) Offers to create GitHub issue with `gh issue create`
+7. (If GitHub repo) Offers to create feature branch
+8. Appends entry to `logs/copilot/agent-activity.log`
+9. Hands off to the **Discuss** agent automatically
 
 > **Why confirm the primary branch instead of hardcoding `main`?** Teams differ — some use `dev`, `develop`, or `staging` as their integration branch. Hardcoding `main` means developers accidentally base feature branches on stale or wrong code. The answer is stored once in `copilot-instructions.md` so the prompt adapts to every team's setup.
 
 > **Why A/B choice?** If you're mid-way through a feature and just want to continue, you don't want `/start-issue` forcing a new branch. Option A lets you keep context; Option B is for truly new work.
 
-**Output**: Primary branch confirmed, feature branch ready, Issue doc initialized, Discuss begins
+**Output**: Primary branch confirmed, feature branch ready, work folder created at `work/ISSUE-XXX-name/`, GitHub issue created (optional), activity logged, Discuss begins
 
 ---
 
@@ -72,7 +75,17 @@ The 5-phase workflow prevents this. Every piece of work — feature, bug fix, im
 
 **Goal**: Write down requirements everyone agrees on, before anyone touches code.
 
-**Output**: Phase 1 section in the Issue doc
+**What happens**:
+1. Discuss agent asks clarifying questions (one at a time, max 5)
+2. Proposes 2-3 approaches with trade-offs
+3. Gets explicit approval on final design
+4. Writes Phase 1 (Requirements) in `work/ISSUE-XXX-name/plan.md`
+5. Marks Phase 1 as `[x] Complete`
+6. Appends entry to `logs/copilot/agent-activity.log`
+7. Shows full 5-phase roadmap
+8. Hands off to Research agent **automatically**
+
+**Output**: `plan.md` Phase 1 complete, Research starts automatically
 
 ---
 
@@ -81,14 +94,17 @@ The 5-phase workflow prevents this. Every piece of work — feature, bug fix, im
 **Goal**: Find existing patterns BEFORE planning. Never plan in a vacuum.
 
 **What happens**:
-1. Research agent reads Phase 1 requirements
+1. Research agent reads `plan.md` Phase 1 (requirements)
 2. Searches the codebase for:
    - Files that will likely need to change
    - Existing patterns to follow (reuse, don't reinvent)
    - Related services, middleware, schemas
    - Tests that may need updating
-3. Fills Phase 2 of the Issue doc with findings
-4. Presents a handoff button: "Create Plan →"
+3. Writes Phase 2 (Research) in `work/ISSUE-XXX-name/plan.md`
+4. Marks Phase 2 as `[x] Complete`
+5. Appends entry to `logs/copilot/agent-activity.log`
+6. Completes with message: **"Run `/plan` to create implementation plan"**
+7. **Does NOT auto-hand off** — user must explicitly run `/plan`
 
 **Real example of what Research finds**:
 ```
@@ -111,21 +127,25 @@ Risk:
 
 ---
 
-### Phase 3 — Plan ("Create Plan →" button)
+### Phase 3 — Plan (`/plan`)
 
 **Goal**: Create an ordered implementation checklist before writing any code.
 
 **What happens**:
-1. Developer clicks **"Create Plan →"** from the Research handoff (or selects the `Planner` agent directly)
-2. Planner agent reads Phase 1 (requirements) + Phase 2 (research findings)
-3. Creates a structured plan with:
+1. Developer runs `/plan` (after Research completes)
+2. Planner agent reads `plan.md` Phase 1 (requirements) + Phase 2 (research findings)
+3. Verifies Phases 1 and 2 are marked complete (gate check)
+4. Creates a structured plan with:
    - Architecture decisions (and why)
    - Ordered task checklist
    - Test plan
    - Open questions needing human input
-4. Developer reviews and approves
-5. Planner writes Phase 3 to Issue doc
-6. Handoff button: "Start Implementation (TDD) →"
+5. Developer reviews and approves
+6. Planner writes Phase 3 to `work/ISSUE-XXX-name/plan.md`
+7. Marks Phase 3 as `[x] Complete`
+8. Appends entry to `logs/copilot/agent-activity.log`
+9. Completes with message: **"Run `/execute work/ISSUE-XXX-name` to begin implementation"**
+10. **Does NOT auto-hand off** — user must explicitly run `/execute`
 
 **Example plan output**:
 ```markdown
@@ -142,8 +162,8 @@ Window: 15 min (not 5 — confirmed with product team in Discuss phase).
 - [ ] Implement: admin role check before rate limit
 ```
 
-**Agent used**: `plan.agent.md`
-**Output**: Phase 3 section in the Issue doc
+**Agent used**: `plan.agent.md`  
+**Output**: `plan.md` Phase 3 complete
 
 ---
 
@@ -152,31 +172,52 @@ Window: 15 min (not 5 — confirmed with product team in Discuss phase).
 **Goal**: Write code following TDD — tests prove the code works before moving on.
 
 **What happens**:
-1. Developer runs `/execute` (or uses the "Start Implementation" handoff button)
-2. TDD agent reads Phase 3 task list
-3. For each task:
-   - Writes the test file first
-   - Writes the implementation to make the test pass
-   - Commits: `issue-042 test: rate limit middleware` then `issue-042 feat: rate limit middleware`
-   - Marks task `[x]` in Issue doc Phase 4 progress tracker
-4. Logs each commit to `logs/copilot/agent-activity.log`
+1. Developer runs `/execute work/ISSUE-XXX-name`
+2. Execute prompt reads `plan.md` Phases 1-3
+3. **Offers choice of execution mode**:
 
-**Commit pattern**:
+   **Mode A: Agent Mode** (Recommended for complex features)
+   - Execute prompt generates a context bundle with:
+     - Requirements (Phase 1)
+     - Research findings (Phase 2)
+     - Implementation plan (Phase 3)
+     - File locations and quality standards
+   - Developer copies bundle to **new Copilot chat**
+   - Agent mode implements with full workspace awareness
+   - When done, developer returns and runs `/verify`
+   - ✅ Best for: refactoring, large features, exploration
+
+   **Mode B: TDD Agent** (Strict discipline)
+   - Invokes `@tdd` agent in same chat
+   - For each task:
+     - Writes failing test first
+     - Implements minimal code to pass
+     - Refactors while keeping tests green
+     - Commits: `git commit -m "feat: <task> Fixes #XX"`
+     - Updates `result.md` Phase 4 progress
+   - ✅ Best for: routine features, bug fixes, learning TDD
+
+4. Whichever mode completes:
+   - Updates `work/ISSUE-XXX-name/result.md` Phase 4
+   - Marks Phase 4 as `[x] Complete`
+   - (If GitHub repo) Offers to create PR with `gh pr create --title "<type>: <title>" --body "Fixes #XX\n\n<summary>"`
+   - Appends entry to `logs/copilot/agent-activity.log`
+   - Completes with message: **"Run `/verify work/ISSUE-XXX-name` for quality gate"**
+
+**Commit pattern** (Mode B - TDD Agent):
 ```
-issue-042 test: rate limit middleware
-issue-042 feat: rate limit middleware (red→green)
-issue-042 test: admin bypass for rate limit
-issue-042 feat: admin bypass (red→green)
+feat: rate limit middleware Fixes #42
+feat: admin bypass for rate limit Fixes #42
 ```
 
-**Why one commit per test cycle?** If a test regresses later, you can pin exact commits to where it broke.
+**Why GitHub issue reference?** Links commits to the GitHub issue for traceability.
 
 **Copilot updates**:
-- `docs/issues/issue-042-login-rate-limiting.md` → Execution notes, progress tracker updated
-- `docs/apis/auth/login.api.md` → "Rate limiting" section added to the API doc
+- `work/ISSUE-042-login-rate-limiting/result.md` → Phase 4 execution notes
+- `docs/apis/auth/login.api.md` → "Rate limiting" section added to the API doc (if endpoint changed)
 
-**Agent used**: `tdd.agent.md`
-**Output**: Working code, Phase 4 progress tracker updated
+**Agents/Prompts used**: `execute.prompt.md` → `tdd.agent.md` (Mode B) or agent mode (Mode A)  
+**Output**: Working code, `result.md` Phase 4 complete, GitHub PR created (optional)
 
 > **3 or more independent tasks?** Use `parallel-builder.agent.md` instead. It checks which tasks are truly independent, dispatches them to TDD Implementer subagents simultaneously, then integrates the results and runs the full test suite. Only use this when tasks touch completely different files — shared files = hidden dependencies = merge conflicts.
 
@@ -187,7 +228,7 @@ issue-042 feat: admin bypass (red→green)
 **Goal**: Independent check that everything is done before creating a PR.
 
 **What happens**:
-1. Developer runs `/verify`
+1. Developer runs `/verify work/ISSUE-XXX-name`
 2. Verify agent runs the full checklist:
    - Requirements: each acceptance criterion from Phase 1 → ✅/❌/⚠️
    - Tests: `npm test` — all passing?
@@ -196,12 +237,19 @@ issue-042 feat: admin bypass (red→green)
    - Code quality: TypeScript errors? Lint errors? Console.logs?
    - Security: No hardcoded credentials?
 3. Produces a verification report
-4. Writes Phase 5 to Issue doc
-5. If all clear: marks Issue `status: done`
+4. Writes Phase 5 to `work/ISSUE-XXX-name/result.md`
+5. Marks Phase 5 as `[x] Complete`
+6. Appends entry to `logs/copilot/agent-activity.log`
+7. If verdict is **✅ READY**:
+   - (If GitHub repo + PR exists) Offers to merge PR with `gh pr merge --squash --delete-branch`
+   - (If GitHub repo + no PR) Offers to create and merge PR
+8. If verdict is **⛔ NOT READY**:
+   - Lists blocking issues
+   - Developer fixes issues, then re-runs `/verify`
 
 **Example report**:
 ```markdown
-## Verification Report — issue-042
+## Verification Report — ISSUE-042
 
 Requirements: 3/3 ✅
   ✅ Rate limiting after 5 failures
@@ -212,68 +260,119 @@ Tests: 12/12 ✅
   ✅ Unit: 8/8
   ✅ Integration: 4/4
 
-Verdict: ✅ READY FOR PR
+Verdict: ✅ READY
 ```
 
-**Agent used**: `verify.agent.md`
-**Output**: Phase 5 in Issue doc, green light for PR
+**Agent used**: `verify.agent.md`  
+**Output**: `result.md` Phase 5 complete, verdict (READY or NOT READY), GitHub PR merged (optional)
 
 ---
 
 ### After Phase 5 — Finish Branch (`/finish-branch`)
 
-**Goal**: Final gate before merging — runs tests + quality checks, then offers 4 structured options.
+**Goal**: Final decision on what to do with the completed work.
 
 **What it does**:
-1. Re-runs the full test suite (`npm test`)
-2. Runs TypeScript check (`npx tsc --noEmit`) and lint
-3. Reads the Issue doc to verify all Phase 1 requirements are met
-4. Presents 4 options:
+1. Reads `result.md` Phase 5 verification report
+2. (If GitHub repo) Checks if PR exists with `gh pr view`
+3. Presents 4 options:
    - **Merge to primary locally** — merge the branch into your primary branch (e.g. `dev`)
-   - **Push and create a PR** — push branch and open a GitHub PR
-   - **Keep as-is** — preserve the branch, handle merging later
-   - **Discard** — delete the branch (asks for typed confirmation first)
-5. Updates Issue doc `status: done` after merge or PR
+   - **Push and create a PR** — push branch and open a GitHub PR (if GitHub repo)
+   - **Keep as-is** — preserve the branch and work folder, handle merging later
+   - **Discard** — delete the branch and work folder (asks for typed confirmation first)
+4. (If GitHub repo) Uses `gh pr merge` or `gh pr create` automatically
+5. Archives work folder to `work/.archived/ISSUE-XXX-name/` after merge (optional)
 
-> **Why use `/finish-branch` instead of just running `git merge`?** It enforces the final test + requirements gate — prevents merging green-code-but-broken-requirements or broken lint.
+> **Why use `/finish-branch` instead of just running `git merge`?** GitHub integration is handled automatically, and verification report is reviewed one final time before merge.
 
 ---
 
-## The Issue Document
+## The Work Folder Structure
 
-Every Issue has ONE file tracking all 5 phases:
+Every issue gets ONE folder with TWO files tracking intent vs reality:
 
 ```
-docs/issues/issue-042-login-rate-limiting.md
+work/ISSUE-042-login-rate-limiting/
+  ├── plan.md      ← Intent: Phases 1-3 (Discuss, Research, Plan)
+  └── result.md    ← Reality: Phases 4-5 (Execute, Verify)
 ```
 
+**Why split into two files?**
+- Prevents merge conflicts when multiple developers work on different issues
+- Separates "what we want to build" from "what we built"
+- Easier for agents to read specific sections
+
+**plan.md structure**:
 ```markdown
+# ISSUE-042: Login Rate Limiting
+
+**Status**: execute  
+**Branch**: feat/042-login-rate-limiting  
+**GitHub Issue**: #42 (if created)  
+**Started**: 2026-03-12  
+
 ---
-issue-id: "issue-042"
-title: "Login Rate Limiting"
-status: "execute"          ← updates through: discuss → research → plan → execute → verify → done
-branch: "issue/issue-042-login-rate-limiting"
+
+## Phase 1: Discuss — Requirements
+**Status**: [x] Complete
+
+### What We're Building
+Add rate limiting to the login endpoint to prevent brute-force attacks.
+
+### Acceptance Criteria
+- [ ] Max 5 login attempts per email per 15 minutes
+- [ ] Admin users bypass rate limit
+- [ ] 429 response with Retry-After header when limited
+
 ---
 
-# issue-042: Login Rate Limiting
+## Starting a Session on an Existing Issue
 
-## Phase 1: Discuss [x]
-Requirements agreed: ...
-Acceptance criteria: ...
+This is the most important habit: **always re-read the work folder** when resuming work.
 
-## Phase 2: Research [x]
-Files to modify: ...
-Patterns found: ...
+```
+"Continue ISSUE-042. Read work/ISSUE-042-login-rate-limiting/plan.md and result
+- [ ] Implement: rate-limit.ts middleware
+- [ ] Test: auth controller with rate limit (integration)
+- [ ] Apply: middleware to POST /auth/login
+```
 
-## Phase 3: Plan [x]
-Architecture decisions: ...
-Task checklist: ...
+**result.md structure**:
+```markdown
+# ISSUE-042: Login Rate Limiting — Execution Results
 
-## Phase 4: Execute [/]     ← in progress
-[ ] Task 1
-[x] Task 2
+---
 
-## Phase 5: Verify [ ]
+## Phase 4: Execute — Implementation
+**Status**: [x] Complete
+
+### What Was Implemented
+- Created src/middleware/rate-limit.ts with Redis-based rate limiting
+- Applied middleware to POST /auth/login route
+- Added admin role bypass before rate limit check
+
+### Commits
+- `feat: rate limit middleware Fixes #42` (commit abc123)
+- `feat: admin bypass for rate limit Fixes #42` (commit def456)
+
+### Deviations from Plan
+- Used 10-minute window instead of 15 (product approved in Slack)
+
+---
+
+## Phase 5: Verify — Quality Gate
+**Status**: [x] Complete
+
+### Verification Report
+**Requirements**: 3/3 ✅  
+**Tests**: 12/12 ✅  
+**Code Quality**: ✅ No errors  
+
+**Verdict**: ✅ READY
+
+### GitHub PR
+- PR #42 created: https://github.com/.../pull/42
+- Merged to `dev` on 2026-03-12
 ```
 
 ---

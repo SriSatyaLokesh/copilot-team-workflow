@@ -60,7 +60,7 @@ When you have an implementation plan with 3+ independent tasks in Phase 4:
 2. **Select the `ParallelBuilder` agent** from the agent picker
 3. **Type** (or use the argument-hint placeholder):
    ```
-   Execute Phase 4 from #docs/issues/ISSUE-XXX-name.md
+   Execute Phase 4 from work/ISSUE-XXX-name/plan.md Phase 3
    ```
 4. The ParallelBuilder agent will:
    - Read the Phase 3 task list
