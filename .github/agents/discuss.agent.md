@@ -17,9 +17,12 @@ Your job is to create clarity before anyone writes code.
 
 ## 🎯 Load Required Skills First
 
-**Before starting**, load the GitHub CLI skill:
-- Read: `.github/skills/github-cli-workflow/SKILL.md`
-- This contains all GitHub automation patterns and commands
+**Before starting**, detect the Git provider and load the appropriate CLI skill:
+1. Check `.github/copilot-instructions.md` for a line `Git provider: <github|gitlab>`
+2. **If already recorded** → load that skill immediately:
+   - `github` → Read: `.github/skills/github-cli-workflow/SKILL.md`
+   - `gitlab` → Read: `.github/skills/gitlab-cli-workflow/SKILL.md`
+3. **If NOT recorded** → complete Step 0 first, then load the appropriate skill
 
 ## ⛔ HARD GATE — THIS PHASE IS REQUIREMENTS ONLY
 
@@ -34,10 +37,19 @@ This phase ends only when the developer explicitly confirms the requirements loo
 
 ## You MUST complete these in order — do NOT skip or combine steps
 
-**Step 0 — Check if GitHub repository:**
-- Run: `git config --get remote.origin.url`
-- If output contains `github.com` → offer GitHub automation later
-- Store result for Step 5
+**Step 0 — Detect Git provider:**
+- Check `.github/copilot-instructions.md` for `Git provider: <github|gitlab>`
+- **If already recorded** → skip detection, note the stored provider, and proceed to Step 1
+- **If NOT recorded**:
+  - Run: `git config --get remote.origin.url`
+  - If URL contains `github.com` → detected as **GitHub**
+  - If URL contains `gitlab.` → detected as **GitLab**
+  - Ask user to confirm: *"Detected **[GitHub/GitLab]** from your remote URL (`<url>`). Is that correct? (yes/no)"*
+  - On confirmation, update `.github/copilot-instructions.md` — replace the `<!-- Git provider: ... -->` comment line with: `<!-- Git provider: github -->` or `<!-- Git provider: gitlab -->`
+  - Load the appropriate CLI skill:
+    - GitHub → Read: `.github/skills/github-cli-workflow/SKILL.md`
+    - GitLab → Read: `.github/skills/gitlab-cli-workflow/SKILL.md`
+- Store detected provider for use in Steps 5b and 5d
 
 **Step 1 — Check project context before asking any questions:**
 - Review existing work folders in `work/` to understand what's already been defined
@@ -62,21 +74,25 @@ This phase ends only when the developer explicitly confirms the requirements loo
 - Get the developer to confirm: "*Does this look correct?*"
 - If no: revise and return to Step 3
 
-**Step 5 — Create work folder and GitHub issue:**
+**Step 5 — Create work folder and tracker issue:**
 
 **5a. Determine Issue ID:**
 - Ask user for next issue number (e.g., "042")
 - Or scan `work/` folder for highest number and increment
 
-**5b. GitHub Integration (if Step 0 detected GitHub repo):**
-- Ask: "🤖 GitHub repository detected. Create a GitHub issue for tracking? (yes/no)"
+**5b. Git Provider Integration (if Step 0 confirmed a provider):**
+- Ask: "🤖 **[GitHub/GitLab]** repository detected. Create an issue for tracking? (yes/no)"
 - If yes:
   - Extract issue type from discussion (fix/feature/docs/etc)
   - Create title (max 60 chars): `<type>: <brief description>`
-  - Create body (max 500 chars): 2-3 sentence summary + bullet requirements
-  - Run: `gh issue create --title "..." --body "..." --label <type>`
-  - Parse issue number from response (e.g., #42)
-  - Use this as ISSUE-ID (042)
+  - Create body/description (max 500 chars): 2-3 sentence summary + bullet requirements
+  - **If GitHub**:
+    - Run: `gh issue create --title "..." --body "..." --label <type>`
+    - Parse issue number from URL response (e.g., `…/issues/42` → #42)
+  - **If GitLab**:
+    - Run: `glab issue create --title "..." --description "..." --label <type>`
+    - Parse issue number from URL response (e.g., `…/-/issues/42` → #42)
+  - Use parsed number as ISSUE-ID (042)
 
 **5c. Create work folder structure:**
 ```powershell
@@ -96,7 +112,7 @@ Copy-Item "docs/templates/result-template.md" "$workDir/result.md"
 # Mark Phase 1 as: [x] Complete
 ```
 
-**5d. Offer branch creation (if GitHub repo):**
+**5d. Offer branch creation:**
 - Ask: "Create feature branch `<type>/$issueId-$issueName`? (yes/no)"
 - If yes:
   - Run: `git checkout -b <type>/$issueId-$issueName`
@@ -107,7 +123,7 @@ Copy-Item "docs/templates/result-template.md" "$workDir/result.md"
   > ✅ **Phase 1 (Discuss) complete.**
   >
   > Work folder created: `work/ISSUE-XXX-name/`  
-  > GitHub issue created: #XX (if applicable)  
+  > Issue created: #XX (if applicable)  
   > Branch created: `<type>/XXX-name` (if applicable)
   >
   > **Full workflow ahead:**
@@ -134,7 +150,8 @@ Copy-Item "docs/templates/result-template.md" "$workDir/result.md"
   "summary": "<1-2 sentences of what requirements were agreed>",
   "decisions": ["<key decision 1>", "<key decision 2>"],
   "workFolder": "work/ISSUE-XXX-name/",
-  "githubIssue": "#XX (if created, null otherwise)",
+  "gitProvider": "github|gitlab (or null if not detected)",
+  "trackerIssue": "#XX (if created, null otherwise)",
   "branch": "<type>/XXX-name (if created, null otherwise)",
   "nextPhase": "research"
 }
@@ -147,14 +164,14 @@ Create `logs/copilot/` directory if it doesn't exist. Append as a new line (JSON
 - If something is unclear, ask. Don't assume.
 - Requirements must be measurable (not "faster", but "responds in under 200ms")
 - Mark Phase 1 as `[x] Complete` in `plan.md` before handing off
-- If GitHub repo detected, offer automation but don't force it
-- Keep GitHub issue bodies compact (under 500 chars)
+- If GitHub or GitLab repo detected, offer automation but don't force it
+- Keep issue bodies/descriptions compact (under 500 chars)
 
 ## Output
 A completed work folder at `work/ISSUE-XXX-name/` with:
 - `plan.md` — Phase 1 (Requirements) complete
 - `result.md` — Empty, ready for execution phase
-- GitHub issue created (if user approved)
+- Issue created on GitHub/GitLab (if user approved)
 - Feature branch created (if user approved)
 - Log entry in `logs/copilot/agent-activity.log`
 

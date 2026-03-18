@@ -55,3 +55,6 @@ Every work item is an **Issue** going through 5 phases:
 
 <!-- PRIMARY BRANCH CONFIG — auto-written by /start-issue on first run -->
 <!-- Primary branch: (not set — run /start-issue and Copilot will ask you) -->
+
+<!-- GIT PROVIDER CONFIG — auto-written by /discuss on first run -->
+<!-- Git provider: (not set — run /discuss and Copilot will ask you) -->
