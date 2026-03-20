@@ -42,13 +42,13 @@ This is always the first action. Enter the issue description and issue ID when p
 - If B: pull the latest from primary and create `<type>/042-login-rate-limiting`
 - Run `npm test` to confirm baseline is green
 - Create the work folder at `work/ISSUE-042-login-rate-limiting/` with `plan.md` and `result.md` templates
-- (If GitHub repo) Offer to create GitHub issue with `gh issue create`
+- (If GitHub/GitLab repo) Offer to create a tracker issue (`gh`/`glab` issue create)
 - Append entry to `logs/copilot/agent-activity.log`
 - Hand off to the **Discuss** agent
 
 > **Never manually `git checkout -b` before defining requirements.** Let `/start-issue` create the branch — it ensures you're always branching from the freshest version of your primary branch.
 
-**Step 2**: The **Discuss** agent defines requirements
+**Step 2**: The **Discuss** agent detects your Git provider and defines requirements
 
 ```
 "We need to add rate limiting to the login endpoint.
@@ -80,6 +80,7 @@ The Verify agent checks all requirements, tests, and docs — pass/fail report. 
 **Step 7**: Fix anything caught, then use `/finish-branch` to merge or create PR.
 
 If GitHub repo: Offers to merge PR automatically with `gh pr merge`.
+If GitLab repo: Offers to merge MR automatically with `glab mr merge`.
 
 ---
 
@@ -154,7 +155,7 @@ Updated:
 - work/ISSUE-042-login-rate-limiting/result.md (Phase 4 progress)
 ```
 
-Code and docs in the **same commit**, always. GitHub issue reference links commit to issue.
+Code and docs in the **same commit**, always. Issue reference links commit to the tracker issue.
 
 ---
 
@@ -176,8 +177,8 @@ Before you create a PR, run the `/review` command. This dispatches a specialized
 
 1. Run `/verify` — get the verification report
 2. Fix every ❌ item the Verify agent found
-3. Run `/finish-branch` — it re-runs tests, checks lint + TypeScript, confirms requirements, then presents options: **Merge locally / Push PR / Keep as-is / Discard**
-4. For PR option: `gh pr create` is run automatically with a description from the Issue doc
+3. Run `/finish-branch` — it re-runs tests, checks lint + TypeScript, confirms requirements, then presents options: **Merge locally / Push PR⁠/⁠MR / Keep as-is / Discard**
+4. For PR/MR option: `gh pr create` (GitHub) or `glab mr create` (GitLab) is run automatically with a description from the Issue doc
 5. Request a teammate to review
 
 The reviewer runs `/code-review` on the PR files for a systematic multi-dimension review.

@@ -6,17 +6,18 @@ A production-ready `.github/` configuration that turns GitHub Copilot into a str
 - 8 specialist agents (Discuss, Research, Planner, TDD, Reviewer, Verify, ApiBuilder, ParallelBuilder)
 - 15 slash command prompts (`/start-issue`, `/discuss`, `/research`, `/plan`, `/execute`, `/verify`, `/debug`, `/add-new-api`, `/finish-branch`, `/generate-api-doc`, `/update-api-doc`, `/receive-review`, `/status`, `/sync-docs`, `/summarize`)
 - Auto-loading instructions per file type (architecture rules, commenting standards, doc-on-change)
-- 11 auto-loading skills (TDD, doc-reviewer, GitHub CLI workflow, Playwright, code review patterns)
+- 13 auto-loading skills (TDD, doc-reviewer, GitHub CLI workflow, GitLab CLI workflow, Playwright, code review patterns)
 - Playwright testing skills and instructions
 - Session hooks (auto-commit + structured activity log)
 - 9 documentation templates + 7 codebase knowledge templates
 - GitHub CLI integration (automatic issue/PR creation and merge)
+- GitLab CLI integration (automatic issue/MR creation and merge)
 - Work folder structure (`work/ISSUE-XXX-name/`) to prevent merge conflicts
 - Activity logging (`logs/copilot/agent-activity.log`) for audit trail
 - Dual-mode execution (Agent Mode for complex features, TDD Agent for routine work)
 - A 11-part beginner-friendly learn series in `learn/` (at repo root — not copied on install)
 
-> **What's New in V2** (March 2026): Work folder structure, GitHub CLI integration, dual-mode execution, fixed agent handoff chain, activity logging. See [MIGRATION-V2.md](./docs/MIGRATION-V2.md) for upgrade guide.
+> **What's New in V2** (March 2026): Work folder structure, GitHub and GitLab CLI integration, dual-mode execution, fixed agent handoff chain, activity logging. See [MIGRATION-V2.md](./docs/MIGRATION-V2.md) for upgrade guide.
 
 > **Learn more**: Start with [`learn/00-introduction.md`](./learn/00-introduction.md) or read it as a website: **[srisatyalokesh.github.io/copilot-team-workflow](https://srisatyalokesh.github.io/copilot-team-workflow)**
 
@@ -176,12 +177,13 @@ Everything else works out of the box.
 │   └── sync-docs.prompt.md              ← /sync-docs (bulk doc updates)
 ├── workflows/                           ← Specialist workflows
 │   └── acquire-codebase-knowledge.md    ← Factual codebase mapping procedure
-├── skills/                              ← 11 auto-loading knowledge packs
+├── skills/                              ← 13 auto-loading knowledge packs
 │   ├── acquire-codebase-knowledge/SKILL.md ← Factual codebase mapping (Arch, Stack, etc.)
 │   ├── agent-activity-logger/SKILL.md   ← Log format reference
 │   ├── doc-reviewer/SKILL.md            ← Brutal doc review (Critical/Major/Minor)
 │   ├── documentation-writer/SKILL.md    ← Diátaxis-guided doc creation
-│   ├── github-cli-workflow/SKILL.md     ← GitHub issue/PR automation patterns
+│   ├── github-cli-workflow/SKILL.md     ← GitHub issue/PR automation (gh CLI)
+│   ├── gitlab-cli-workflow/SKILL.md     ← GitLab issue/MR automation (glab CLI)
 │   ├── playwright-automation-fill-in-form/SKILL.md
 │   ├── playwright-explore-website/SKILL.md
 │   ├── playwright-generate-test/SKILL.md

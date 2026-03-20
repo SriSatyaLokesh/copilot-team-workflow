@@ -58,8 +58,8 @@ The 5-phase workflow prevents this. Every piece of work — feature, bug fix, im
 3. If B: `git checkout <primary> && git pull origin <primary> && git checkout -b <type>/[issue-id]-[slug]`
 4. Runs `npm test` — confirms baseline is green before any new work
 5. Creates work folder at `work/ISSUE-[id]-[slug]/` with `plan.md` and `result.md` templates
-6. (If GitHub repo) Offers to create GitHub issue with `gh issue create`
-7. (If GitHub repo) Offers to create feature branch
+6. (If GitHub/GitLab repo) Offers to create a tracker issue (`gh issue create` / `glab issue create`)
+7. Offers to create feature branch
 8. Appends entry to `logs/copilot/agent-activity.log`
 9. Hands off to the **Discuss** agent automatically
 
@@ -67,7 +67,7 @@ The 5-phase workflow prevents this. Every piece of work — feature, bug fix, im
 
 > **Why A/B choice?** If you're mid-way through a feature and just want to continue, you don't want `/start-issue` forcing a new branch. Option A lets you keep context; Option B is for truly new work.
 
-**Output**: Primary branch confirmed, feature branch ready, work folder created at `work/ISSUE-XXX-name/`, GitHub issue created (optional), activity logged, Discuss begins
+**Output**: Primary branch confirmed, feature branch ready, work folder created at `work/ISSUE-XXX-name/`, tracker issue created (optional), activity logged, Discuss begins
 
 ---
 
@@ -76,16 +76,18 @@ The 5-phase workflow prevents this. Every piece of work — feature, bug fix, im
 **Goal**: Write down requirements everyone agrees on, before anyone touches code.
 
 **What happens**:
-1. Discuss agent asks clarifying questions (one at a time, max 5)
-2. Proposes 2-3 approaches with trade-offs
-3. Gets explicit approval on final design
-4. Writes Phase 1 (Requirements) in `work/ISSUE-XXX-name/plan.md`
-5. Marks Phase 1 as `[x] Complete`
-6. Appends entry to `logs/copilot/agent-activity.log`
-7. Shows full 5-phase roadmap
-8. Hands off to Research agent **automatically**
+1. Detects Git provider (GitHub or GitLab) from remote URL — asks to confirm once, stores result in `copilot-instructions.md` permanently
+2. Loads the appropriate CLI skill (`github-cli-workflow` or `gitlab-cli-workflow`)
+3. Asks clarifying questions (one at a time, max 5)
+4. Proposes 2-3 approaches with trade-offs
+5. Gets explicit approval on final design
+6. Writes Phase 1 (Requirements) in `work/ISSUE-XXX-name/plan.md`
+7. Marks Phase 1 as `[x] Complete`
+8. Appends entry to `logs/copilot/agent-activity.log`
+9. Shows full 5-phase roadmap
+10. Hands off to Research agent **automatically**
 
-**Output**: `plan.md` Phase 1 complete, Research starts automatically
+**Output**: `plan.md` Phase 1 complete, Git provider stored, Research starts automatically
 
 ---
 
@@ -201,6 +203,7 @@ Window: 15 min (not 5 — confirmed with product team in Discuss phase).
    - Updates `work/ISSUE-XXX-name/result.md` Phase 4
    - Marks Phase 4 as `[x] Complete`
    - (If GitHub repo) Offers to create PR with `gh pr create --title "<type>: <title>" --body "Fixes #XX\n\n<summary>"`
+   - (If GitLab repo) Offers to create MR with `glab mr create --title "<type>: <title>" --description "Closes #XX\n\n<summary>"`
    - Appends entry to `logs/copilot/agent-activity.log`
    - Completes with message: **"Run `/verify work/ISSUE-XXX-name` for quality gate"**
 
@@ -210,7 +213,7 @@ feat: rate limit middleware Fixes #42
 feat: admin bypass for rate limit Fixes #42
 ```
 
-**Why GitHub issue reference?** Links commits to the GitHub issue for traceability.
+**Why issue reference in commits?** Links commits to the tracker issue for traceability — works on both GitHub and GitLab.
 
 **Copilot updates**:
 - `work/ISSUE-042-login-rate-limiting/result.md` → Phase 4 execution notes
@@ -242,7 +245,8 @@ feat: admin bypass for rate limit Fixes #42
 6. Appends entry to `logs/copilot/agent-activity.log`
 7. If verdict is **✅ READY**:
    - (If GitHub repo + PR exists) Offers to merge PR with `gh pr merge --squash --delete-branch`
-   - (If GitHub repo + no PR) Offers to create and merge PR
+   - (If GitLab repo + MR exists) Offers to merge MR with `glab mr merge --squash --remove-source-branch`
+   - (If no PR/MR exists) Offers to create and merge one
 8. If verdict is **⛔ NOT READY**:
    - Lists blocking issues
    - Developer fixes issues, then re-runs `/verify`
@@ -274,16 +278,16 @@ Verdict: ✅ READY
 
 **What it does**:
 1. Reads `result.md` Phase 5 verification report
-2. (If GitHub repo) Checks if PR exists with `gh pr view`
+2. Checks if PR/MR exists (`gh pr view` for GitHub, `glab mr view` for GitLab)
 3. Presents 4 options:
    - **Merge to primary locally** — merge the branch into your primary branch (e.g. `dev`)
-   - **Push and create a PR** — push branch and open a GitHub PR (if GitHub repo)
+   - **Push and create a PR/MR** — push branch and open a GitHub PR or GitLab MR
    - **Keep as-is** — preserve the branch and work folder, handle merging later
    - **Discard** — delete the branch and work folder (asks for typed confirmation first)
-4. (If GitHub repo) Uses `gh pr merge` or `gh pr create` automatically
+4. Uses `gh pr merge`/`gh pr create` (GitHub) or `glab mr merge`/`glab mr create` (GitLab) automatically
 5. Archives work folder to `work/.archived/ISSUE-XXX-name/` after merge (optional)
 
-> **Why use `/finish-branch` instead of just running `git merge`?** GitHub integration is handled automatically, and verification report is reviewed one final time before merge.
+> **Why use `/finish-branch` instead of just running `git merge`?** Provider CLI integration is handled automatically, and the verification report is reviewed one final time before merge.
 
 ---
 

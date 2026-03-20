@@ -176,6 +176,8 @@ A skill is a folder containing a `SKILL.md` — a detailed reference document th
 ├── agent-activity-logger/SKILL.md        ← Log format for session audit trail
 ├── doc-reviewer/SKILL.md                 ← Brutal doc review (Critical/Major/Minor + score)
 ├── documentation-writer/SKILL.md         ← Diátaxis-guided doc creation (4 types)
+├── github-cli-workflow/SKILL.md          ← gh CLI: issues, PRs, branches, merge patterns
+├── gitlab-cli-workflow/SKILL.md          ← glab CLI: issues, MRs, branches, merge patterns
 ├── playwright-automation-fill-in-form/SKILL.md ← Automate form fill via Playwright MCP
 ├── playwright-explore-website/SKILL.md   ← Explore URL, find 3-5 flows, propose tests
 ├── playwright-generate-test/SKILL.md     ← Generate TypeScript Playwright spec
