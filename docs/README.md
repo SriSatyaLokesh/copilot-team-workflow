@@ -24,6 +24,3 @@ docs/
 
 ## System Architecture
 [Document the conceptual organization of the system. Describe the relationship between major layers (e.g., Controllers, Services, Wrappers) and how data flows through them.]
-
----
-*For a detailed developer onboarding experience, see [DEVELOPER-STANDARD-GUIDE.md](DEVELOPER-STANDARD-GUIDE.md).*

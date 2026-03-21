@@ -2,7 +2,7 @@
 description: 'Use after implementation is complete, before creating a PR or merging — when a developer asks "is this ready?", "can I merge this?", "check if requirements are met", "run a final check", or "verify this Issue". Checks all Phase 1 requirements, test results, TypeScript errors, lint errors, and doc updates. Do NOT activate before implementation is complete.'
 name: Verify
 argument-hint: 'Path to work folder (e.g. work/ISSUE-042-name)'
-tools: ['search', 'codebase', 'terminal', 'problems', 'changes', 'editFiles']
+tools: ['search', 'search/codebase', 'terminal', 'read/problems', 'search/changes', 'edit/editFiles']
 model: 'claude-opus-4-5'
 ---
 # Verify Agent

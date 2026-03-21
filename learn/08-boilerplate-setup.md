@@ -50,9 +50,10 @@ cd your-project
 # Clone the boilerplate
 git clone https://github.com/SriSatyaLokesh/copilot-team-workflow.git copilot-boilerplate
 
-# Copy .github folder and docs structure (excludes learn/ — that's a boilerplate-only guide)
+# Copy .github folder and docs structure (excludes learn/ and boilerplate-only docs)
 Copy-Item -Recurse copilot-boilerplate\.github .\
-Get-ChildItem copilot-boilerplate\docs -Exclude 'learn' | Copy-Item -Destination .\docs -Recurse -Force
+$excludeDocs = @('learn','AGENT-MODE-VS-TDD-AGENT.md','blog-best-way-to-use-copilot.md','COMPLETE-WORKFLOW-VISUAL.md','CONTRIBUTING.md','copilot-team-setup-guide.md','DEVELOPER-STANDARD-GUIDE.md','MIGRATION-V2.md','MODEL-SELECTION.md','RESEARCH-DECISIONS.md','team-copilot-guide.md','vscode-team-copilot-research.md','WHATS-NEW-V2.md','WORK-FOLDER-STRUCTURE.md')
+Get-ChildItem copilot-boilerplate\docs -Exclude $excludeDocs | Copy-Item -Destination .\docs -Recurse -Force
 
 # Create required local log folders (never committed)
 New-Item -ItemType Directory -Force logs\copilot
@@ -78,9 +79,31 @@ cd your-project
 # Clone the boilerplate
 git clone https://github.com/SriSatyaLokesh/copilot-team-workflow.git copilot-boilerplate
 
-# Copy .github folder and docs structure (excludes learn/ — that's a boilerplate-only guide)
+# Copy .github folder and docs structure (excludes learn/ and boilerplate-only docs)
 cp -r copilot-boilerplate/.github ./
-rsync -av --exclude='learn/' copilot-boilerplate/docs/ ./docs/ 2>/dev/null || { cp -r copilot-boilerplate/docs ./ && rm -rf docs/learn; }
+rsync -av \
+  --exclude='learn/' \
+  --exclude='AGENT-MODE-VS-TDD-AGENT.md' \
+  --exclude='blog-best-way-to-use-copilot.md' \
+  --exclude='COMPLETE-WORKFLOW-VISUAL.md' \
+  --exclude='CONTRIBUTING.md' \
+  --exclude='copilot-team-setup-guide.md' \
+  --exclude='DEVELOPER-STANDARD-GUIDE.md' \
+  --exclude='MIGRATION-V2.md' \
+  --exclude='MODEL-SELECTION.md' \
+  --exclude='RESEARCH-DECISIONS.md' \
+  --exclude='team-copilot-guide.md' \
+  --exclude='vscode-team-copilot-research.md' \
+  --exclude='WHATS-NEW-V2.md' \
+  --exclude='WORK-FOLDER-STRUCTURE.md' \
+  copilot-boilerplate/docs/ ./docs/ 2>/dev/null || {
+  cp -r copilot-boilerplate/docs ./
+  rm -rf docs/learn docs/AGENT-MODE-VS-TDD-AGENT.md docs/blog-best-way-to-use-copilot.md \
+    docs/COMPLETE-WORKFLOW-VISUAL.md docs/CONTRIBUTING.md docs/copilot-team-setup-guide.md \
+    docs/DEVELOPER-STANDARD-GUIDE.md docs/MIGRATION-V2.md docs/MODEL-SELECTION.md \
+    docs/RESEARCH-DECISIONS.md docs/team-copilot-guide.md docs/vscode-team-copilot-research.md \
+    docs/WHATS-NEW-V2.md docs/WORK-FOLDER-STRUCTURE.md
+}
 
 # Create required local log folders (never committed)
 mkdir -p logs/copilot
@@ -100,6 +123,26 @@ git add .github/ docs/ .gitignore
 git commit -m "chore: add Copilot team workflow boilerplate"
 git push
 ```
+
+### 📂 What Gets Copied from `docs/`
+
+| Copied into your project | Not copied (boilerplate-only) |
+|:-------------------------|:------------------------------|
+| `docs/README.md` | `AGENT-MODE-VS-TDD-AGENT.md` |
+| `docs/project.md` | `blog-best-way-to-use-copilot.md` |
+| `docs/templates/` (11 templates) | `COMPLETE-WORKFLOW-VISUAL.md` |
+| `docs/codebase/` (7 scaffold files) | `CONTRIBUTING.md` |
+| `docs/apis/` (README + example) | `copilot-team-setup-guide.md` |
+| `docs/flows/` (README + example) | `DEVELOPER-STANDARD-GUIDE.md` |
+| `docs/external-apis/` (README + example) | `MIGRATION-V2.md` |
+| `docs/issues/` (README + example) | `MODEL-SELECTION.md` |
+| `docs/decisions/` (empty folder) | `RESEARCH-DECISIONS.md` |
+| `docs/team-notes/` (empty folder) | `team-copilot-guide.md` |
+| | `vscode-team-copilot-research.md` |
+| | `WHATS-NEW-V2.md` |
+| | `WORK-FOLDER-STRUCTURE.md` |
+
+> `learn/` is never copied — it's a standalone guide, read at the boilerplate repo.
 
 ### VS Code Settings
 
@@ -285,6 +328,26 @@ learn/                                   ← standalone guide (not copied on ins
 ✅ Every session is logged with timestamps and key decisions          
 ✅ Every work item has a full paper trail (discuss → research → plan → execute → verify)         
 ✅ New developers onboard in 30 minutes by reading the `learn/` series on the boilerplate repo        
+
+---
+
+## Upgrading from a Previous Version
+
+If you installed an earlier version of this boilerplate, your `docs/` folder may contain boilerplate-only files that are no longer intended for consumer projects. Run these commands to clean them up:
+
+**PowerShell:**
+```powershell
+$toRemove = @('AGENT-MODE-VS-TDD-AGENT.md','blog-best-way-to-use-copilot.md','COMPLETE-WORKFLOW-VISUAL.md','CONTRIBUTING.md','copilot-team-setup-guide.md','DEVELOPER-STANDARD-GUIDE.md','MIGRATION-V2.md','MODEL-SELECTION.md','RESEARCH-DECISIONS.md','team-copilot-guide.md','vscode-team-copilot-research.md','WHATS-NEW-V2.md','WORK-FOLDER-STRUCTURE.md')
+$toRemove | ForEach-Object { Remove-Item -Force "docs\$_" -ErrorAction SilentlyContinue }
+```
+
+**Bash:**
+```bash
+cd docs && rm -f AGENT-MODE-VS-TDD-AGENT.md blog-best-way-to-use-copilot.md COMPLETE-WORKFLOW-VISUAL.md \
+  CONTRIBUTING.md copilot-team-setup-guide.md DEVELOPER-STANDARD-GUIDE.md MIGRATION-V2.md \
+  MODEL-SELECTION.md RESEARCH-DECISIONS.md team-copilot-guide.md vscode-team-copilot-research.md \
+  WHATS-NEW-V2.md WORK-FOLDER-STRUCTURE.md && cd ..
+```
 
 ---
 
