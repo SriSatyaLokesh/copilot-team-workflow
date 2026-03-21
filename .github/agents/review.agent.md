@@ -1,8 +1,7 @@
 ---
 description: 'Use when reviewing code for quality, security, performance, and standards — when a developer says "review this", "check for issues", "is this good?", "look at my code", "code review", or when preparing a PR. Checks correctness, security vulnerabilities, performance problems, and alignment with team conventions. Read-only — does not write code.'
 name: Reviewer
-tools: ['search', 'codebase', 'usages', 'problems', 'changes']
-model: 'claude-opus-4-5'
+tools: [agent, read, search]
 ---
 # Code Review Agent
 

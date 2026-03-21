@@ -31,10 +31,12 @@ Hands off implementation to **GitHub Copilot's agent mode** with a comprehensive
    - Implementation tasks (Phase 3)
    - Quality standards
    - File locations
-3. You copy bundle → Open new chat → Paste → Let agent implement
-4. Agent updates `result.md` Phase 4 as it works
-5. When agent says "Ready for /verify", return to workflow
-6. Run `/verify work/ISSUE-042-name`
+3. You copy bundle → Open new chat → Reselect Agent Mode
+4. Paste the bundle and confirm terminal + edit tools are available
+5. Let agent implement
+6. Agent updates `result.md` Phase 4 as it works
+7. When agent says "Ready for /verify", return to workflow
+8. Run `/verify work/ISSUE-042-name`
 
 ### Pros
 - 🚀 **Faster**: Agent mode is optimized for bulk implementation
@@ -206,9 +208,11 @@ If all green → Offers to create/merge PR automatically.
 ### Agent Mode Tips
 1. **Copy the full bundle** — don't summarize, agent needs complete context
 2. **Use fresh chat** — prevents context pollution from other conversations
-3. **Update result.md** — agent should fill Phase 4 as it works
-4. **Commit frequently** — don't wait until everything is done
-5. **Ask questions** — agent can explain trade-offs mid-implementation
+3. **Reselect Agent Mode explicitly** — do this before pasting the bundle
+4. **Confirm tools early** — verify terminal and edit tools before coding
+5. **Update result.md** — agent should fill Phase 4 as it works
+6. **Commit frequently** — don't wait until everything is done
+7. **Ask questions** — agent can explain trade-offs mid-implementation
 
 ### TDD Agent Tips
 1. **Trust the discipline** — don't skip the Red step even if "obvious"

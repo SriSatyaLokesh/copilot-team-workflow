@@ -2,8 +2,7 @@
 description: 'Use when adding a new external API integration or calling a new endpoint from an existing external service — when a developer says "add an API call to X", "integrate with Y", "call the Z endpoint", "add a new wrapper method", "fetch data from external API", "connect to a third-party service", or "add a new external data source". Enforces Controller→Service→Wrapper→Transformer architecture. Requires external API doc to exist before starting. Do NOT use for internal API endpoints — only for calls to third-party or external services.'
 name: ApiBuilder
 argument-hint: 'External API name or endpoint (e.g. "Stripe /invoices" or "Dynamics accounts entity")'
-tools: ['edit/editFiles', 'terminal/execute', 'search', 'search/codebase', 'web/fetch']
-model: 'claude-sonnet-4-5'
+tools: [execute, read, edit, search, web]
 ---
 # API Builder Agent
 

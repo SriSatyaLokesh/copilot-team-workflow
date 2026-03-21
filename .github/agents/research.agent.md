@@ -2,8 +2,12 @@
 description: 'Use after requirements are confirmed, before creating an implementation plan — when codebase context is needed: existing patterns, files to modify, related services, database schemas. Activates when a developer asks "where does X live?", "what pattern does the team use for Y?", or "what will this feature affect?". Runs automatically after Discuss phase.'
 name: Research
 argument-hint: 'Path to work folder (e.g. work/ISSUE-042-name)'
-tools: ['search', 'codebase', 'usages', 'problems', 'fetch', 'editFiles', 'terminal']
-model: 'claude-sonnet-4-5'
+tools: [execute, read, edit, search]
+handoffs:
+   - label: Open Planner →
+     agent: Planner
+     prompt: "Research is complete. Use the findings to build Phase 3 in the same work folder and ask for execution mode choice at plan completion."
+     send: false
 ---
 # Research Agent
 
@@ -15,6 +19,8 @@ You research the existing codebase to understand where an Issue fits before plan
 - Read: `.github/skills/github-cli-workflow/SKILL.md`
 
 ## Your Process
+
+Use terminal actions only for safe, phase-appropriate read-only analysis and activity logging.
 
 1. **Read plan.md** first:
    - Ask: "What is the work folder path?" (e.g., `work/ISSUE-042-name`)
@@ -105,6 +111,6 @@ After completing research and updating `plan.md` Phase 2, tell the developer:
 >
 > Research findings saved to `work/ISSUE-XXX-name/plan.md` Phase 2.
 >
-> **Next step**: Run `/plan` to create the implementation plan.
+> **Next step**: Use the **Open Planner →** handoff button, or run `/plan` manually.
 
-**Do NOT automatically hand off to Planner.** The developer must explicitly run `/plan`.
+Use a guided handoff only. Do not force automatic send to Planner.

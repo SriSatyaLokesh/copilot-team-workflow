@@ -2,8 +2,7 @@
 description: 'Use after codebase research is complete, before writing any code — when a developer needs to break work into ordered implementation tasks. Activates when they say "create a plan", "what are the steps to implement this?", "how should I approach this?", or "write the implementation tasks". Requires confirmed requirements (Phase 1) and research findings (Phase 2) to exist.'
 name: Planner
 argument-hint: 'Path to work folder (e.g. work/ISSUE-042-name)'
-tools: ['fetch', 'search', 'usages', 'problems', 'codebase', 'editFiles', 'terminal']
-model: 'claude-opus-4-5'
+tools: [read, edit, search]
 ---
 # Planning Agent
 
@@ -86,8 +85,11 @@ After the plan is approved and Phase 3 is marked complete, tell the developer:
 >
 > **Next step**: Run `/execute work/ISSUE-XXX-name` to begin implementation.
 >
-> You'll be offered two modes:
+> First, choose execution style:
 > - **Mode A (Agent Mode)**: Copy context bundle to new chat, let agent mode handle heavy lifting
 > - **Mode B (TDD Agent)**: Invoke @tdd for strict Red-Green-Refactor cycle
+>
+> If you choose **Mode A**, explicitly reselect agent mode in the new chat before starting implementation.
+> Confirm terminal and file editing tools are available before writing code.
 
 **Do NOT automatically hand off to TDD agent.** The developer must explicitly run `/execute`.

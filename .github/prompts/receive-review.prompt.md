@@ -1,8 +1,6 @@
 ---
 description: 'Use when receiving code review feedback — when the Reviewer agent returns findings, a PR has review comments, or a developer asks how to handle review suggestions. Requires verifying suggestions before implementing, not blind agreement.'
 agent: 'TDD Implementer'
-tools: ['terminal', 'search', 'codebase', 'problems', 'editFiles']
-model: 'claude-sonnet-4-5'
 ---
 # Receiving Code Review Feedback
 

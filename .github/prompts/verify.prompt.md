@@ -1,8 +1,6 @@
 ---
 description: 'Verify a Issue is complete, tested, and documented — final check before PR'
 agent: 'Verify'
-tools: ['terminal', 'search', 'codebase', 'problems', 'changes']
-model: 'claude-opus-4-5'
 ---
 Verify this Issue is complete and ready to merge.
 

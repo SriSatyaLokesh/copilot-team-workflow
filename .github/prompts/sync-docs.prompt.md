@@ -1,8 +1,6 @@
 ---
 description: 'Use after making changes to multiple files, refactoring architecture, or when documentation is out of sync — when a developer says "update all docs", "sync documentation", "refresh API docs", "update codebase docs", "docs are stale", or "check what docs need updating". Scans changed files and updates corresponding documentation in docs/apis/, docs/codebase/, docs/flows/, and docs/external-apis/.'
 agent: 'ask'
-tools: ['search', 'codebase', 'changes', 'editFiles', 'terminal']
-model: 'claude-sonnet-4-5'
 ---
 # Sync Docs — Update Documentation After Code Changes
 

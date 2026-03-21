@@ -1,8 +1,6 @@
 ---
 description: 'Use after research is complete, before writing any code — when a developer says "create a plan", "plan this feature", "break down the tasks", "what are the implementation steps?", or "how should I approach this?". Creates an ordered implementation checklist with architecture decisions, tasks, tests, and acceptance criteria. Requires Phase 1 (requirements) and Phase 2 (research) to be complete.'
 agent: 'Planner'
-tools: ['search', 'codebase', 'editFiles']
-model: 'claude-opus-4-5'
 ---
 # Plan — Break Down Implementation Tasks
 
@@ -53,9 +51,12 @@ Once approved, the plan is written to Phase 3 of the Issue doc.
 After the plan is approved:
 - The Planner marks Phase 3 as `[x] complete`
 - Logs the planning activity to `logs/copilot/agent-activity.log`
-- Offers a handoff button: **"Start Implementation (TDD) →"**
+- Offers execution routing guidance:
+   - Run `/execute` with this work folder
+   - Choose **Mode A (Agent Mode)** or **Mode B (TDD Agent)**
+   - For Mode A, reselect agent mode before implementation begins
 
-Click that button to begin TDD implementation with the `/execute` workflow.
+Use `/execute` to begin implementation with the selected mode.
 
 ---
 

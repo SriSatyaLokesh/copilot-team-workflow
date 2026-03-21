@@ -1,8 +1,6 @@
 ---
 description: 'Add a new external API call — walks through the full Controller→Service→Wrapper→Transformer workflow'
 agent: 'ApiBuilder'
-tools: ['editFiles', 'terminal', 'search', 'codebase']
-model: 'gpt-4o'
 ---
 # Add New API Integration
 

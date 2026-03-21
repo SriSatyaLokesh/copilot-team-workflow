@@ -214,14 +214,16 @@ They are **manually invoked** (unlike instructions which are always-on).
 ---
 description: 'What this prompt does'
 agent: 'agent'       # ask | agent | plan | <custom-agent-name>
-model: 'GPT-4o'      # optional — pin model for consistency
-tools: ['search', 'editFiles', 'terminal']
+tools: [execute, read, edit, search]
 ---
 # Instructions for the AI
 Your detailed instructions here...
 
 Reference docs: [API Guidelines](../docs/api-guidelines.md)
 ```
+
+If a prompt targets a custom agent, omit `tools:` unless you intentionally want the prompt to override that custom agent's tool restrictions.
+Built-in prompt agents such as `ask` do not honor a `tools:` override in frontmatter.
 
 ### Essential Team Prompts
 
@@ -231,7 +233,7 @@ Reference docs: [API Guidelines](../docs/api-guidelines.md)
 ---
 description: 'Create an implementation plan for a new feature'
 agent: 'plan'
-tools: ['search', 'fetch', 'usages', 'problems']
+tools: [read, search]
 ---
 Create a detailed implementation plan for the feature described below.
 
@@ -310,7 +312,6 @@ Bug description: ${input:bug:Describe the bug}
 ---
 description: 'Generate a comprehensive PR description from recent changes'
 agent: 'ask'
-tools: ['changes', 'search']
 ---
 Generate a pull request description for the changes in this branch.
 
@@ -355,17 +356,8 @@ They are stored in `.github/agents/*.agent.md`.
 ---
 description: 'Architect and planner — creates implementation plans without making code changes'
 name: Planner
-tools: ['fetch', 'search', 'usages', 'problems', 'codebase']
-model: ['Claude Opus 4.5', 'GPT-4o']
-handoffs:
-  - label: Start Implementation (TDD)
-    agent: tdd
-    prompt: Now implement the plan outlined above using TDD.
-    send: false
-  - label: Start Implementation (Standard)
-    agent: implement
-    prompt: Now implement the plan outlined above.
-    send: false
+tools: [read, search]
+model: ['GPT-5', 'Claude Sonnet 4.5']
 ---
 # Planning Agent
 
@@ -394,8 +386,8 @@ Never make code edits. Only read, analyze, and plan.
 ---
 description: 'Test-driven implementation agent — writes failing tests first, then code'
 name: TDD Implementer
-tools: ['editFiles', 'terminal', 'search', 'codebase']
-model: ['Claude Sonnet 4.5', 'GPT-4o']
+tools: [execute, read, edit, search]
+model: ['GPT-5', 'Claude Sonnet 4.5']
 ---
 # TDD Implementation Agent
 
@@ -455,8 +447,8 @@ Prioritized list of findings:
 ---
 description: 'Standard implementation agent — implements plans with quality focus'
 name: Implementer
-tools: ['editFiles', 'terminal', 'search', 'codebase']
-model: ['GPT-4o', 'Claude Sonnet 4.5']
+tools: [execute, read, edit, search]
+model: ['GPT-5', 'Claude Sonnet 4.5']
 ---
 # Implementation Agent
 
@@ -488,9 +480,9 @@ User types a feature request
          ↓
     Plan is created and reviewed
          ↓
-  "Start Implementation (TDD)" button appears
+  Developer runs `/execute`
          ↓
-    TDD Implementer takes over
+    /execute prompts mode selection
          ↓
   Code is implemented and tested
          ↓
@@ -725,24 +717,24 @@ Group related tools for quick selection in prompts and agents:
 ```json
 {
   "read-only": {
-    "tools": ["codebase", "search", "usages", "fetch", "problems"],
+    "tools": ["read", "search"],
     "description": "Read-only analysis tools",
     "icon": "book"
   },
   "write-only": {
-    "tools": ["editFiles", "createFile", "moveFile", "deleteFile"],
+    "tools": ["edit"],
     "description": "File editing tools",
     "icon": "pencil"
   },
   "full-dev": {
-    "tools": ["editFiles", "terminal", "search", "codebase", "problems"],
+    "tools": ["execute", "read", "edit", "search"],
     "description": "Full development workflow",
     "icon": "tools"
   }
 }
 ```
 
-Use in agents: `tools: ['#read-only']` or reference in prompts: `#full-dev`
+Use in agents or prompts: `tools: ['read-only']`
 
 ---
 
@@ -834,9 +826,9 @@ The Planner will:
 **Step 3: Implement**
 
 ```
-# Click "Start Implementation (TDD)" handoff button
+# Run `/execute`
 # Or start fresh with:
-"Implement the plan at #docs/features/auth-plan.md using TDD"
+"Run /execute for #docs/features/auth-plan.md and choose Mode A (Agent Mode) or Mode B (TDD Agent)"
 ```
 
 **Step 4: Review**

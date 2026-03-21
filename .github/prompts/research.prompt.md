@@ -1,8 +1,6 @@
 ---
 description: 'Research the codebase for a Issue — find existing patterns, affected files, risks, and context before planning begins. Requires Phase 1 (Discuss) to be complete.'
 agent: 'Research'
-tools: ['search', 'codebase', 'usages', 'fetch']
-model: 'claude-sonnet-4-5'
 ---
 # Phase 2 — Codebase Research
 
@@ -52,5 +50,11 @@ Format your findings as:
 
 ## Step 4 — Hand off to Planner
 
-After writing findings, use the handoff button to proceed to the Planner.
+After writing findings, present a guided next step to Planner.
 The Planner needs these research notes to create a grounded implementation plan.
+
+Use this exact transition guidance:
+- Primary: click **Open Planner →** handoff button
+- Fallback: run `/plan` manually with the same issue/work context
+
+Do not force automatic send. The developer remains in control of when planning starts.

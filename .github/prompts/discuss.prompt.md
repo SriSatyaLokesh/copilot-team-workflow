@@ -1,8 +1,6 @@
 ---
 description: 'Start Phase 1 — define requirements for an existing feature branch Issue. Requires /start-issue to have been run first (feature branch must exist).'
 agent: 'Discuss'
-tools: ['terminal', 'editFiles', 'search']
-model: 'gpt-4o'
 ---
 # Phase 1 — Define Requirements
 

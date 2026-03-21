@@ -34,7 +34,7 @@
 │  ├─ Find files to modify                                       │
 │  ├─ Identify dependencies and risks                            │
 │  ├─ Update plan.md Phase 2                                     │
-│  └─ Hand off to Planner                                        │
+│  └─ Guided handoff: Open Planner button or /plan              │
 └────────────────┬────────────────────────────────────────────────┘
                  │
                  ▼
@@ -51,6 +51,7 @@
 │  │  └─ Documentation                                           │
 │  ├─ Document architecture decisions                            │
 │  ├─ Get plan approval                                          │
+│  ├─ Route execution: choose Mode A or Mode B                   │
 │  └─ Update plan.md Phase 3 (COMPLETE)                          │
 └────────────────┬────────────────────────────────────────────────┘
                  │
@@ -81,6 +82,8 @@
 │ 2. Show bundle to dev     │  │    ├─ REFACTOR: Clean up       │
 │                           │  │    └─ Auto commit              │
 │ 3. Dev copies → New chat  │  │                                │
+│    and reselects Agent    │  │                                │
+│    Mode before pasting    │  │                                │
 │                           │  │ 3. Every 3 tasks:              │
 │ 4. Agent implements:      │  │    ├─ Request code review      │
 │    ├─ Multi-file editing  │  │    ├─ Address Critical issues  │

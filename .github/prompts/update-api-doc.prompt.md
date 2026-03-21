@@ -1,10 +1,8 @@
 ---
 description: 'Update API docs after changing an endpoint — keeps docs in sync with code'
 agent: 'ask'
-tools: ['changes', 'search', 'codebase']
-model: 'claude-haiku-4'
 ---
-The API endpoint in [${fileBasename}](${file}) was changed.
+The API endpoint in `${file}` was changed.
 
 1. Read the current code changes to understand what changed
 2. Find the corresponding API doc in `docs/apis/`

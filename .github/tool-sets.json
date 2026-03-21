@@ -1,38 +1,17 @@
 {
-  "toolSets": [
-    {
-      "name": "read-only",
-      "description": "Read-only analysis tools for codebase exploration",
-      "tools": [
-        "codebase",
-        "search",
-        "usages",
-        "fetch",
-        "problems"
-      ]
-    },
-    {
-      "name": "full-dev",
-      "description": "Full development workflow with file editing and terminal access",
-      "tools": [
-        "editFiles",
-        "createFile",
-        "terminal",
-        "search",
-        "codebase",
-        "problems"
-      ]
-    },
-    {
-      "name": "review",
-      "description": "Code review and quality analysis tools",
-      "tools": [
-        "search",
-        "codebase",
-        "usages",
-        "problems",
-        "changes"
-      ]
-    }
-  ]
+  "read-only": {
+    "tools": ["read", "search"],
+    "description": "Read-only analysis tools for code and workspace exploration",
+    "icon": "book"
+  },
+  "full-dev": {
+    "tools": ["execute", "read", "edit", "search"],
+    "description": "Full development workflow with terminal, file editing, and search",
+    "icon": "tools"
+  },
+  "review": {
+    "tools": ["read", "search"],
+    "description": "Read-only review tools for diffs and code analysis",
+    "icon": "eye"
+  }
 }
