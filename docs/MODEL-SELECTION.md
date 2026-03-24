@@ -119,16 +119,14 @@ To change a model for an agent or prompt, edit the `model:` field in the frontma
 description: 'Agent description'
 agent: 'AgentName'
 tools: ['tool1', 'tool2']
-model: 'gpt-4o'  # ← Change this
+model: 'Exact model label from the VS Code model picker'  # optional
 ---
 ```
 
-Valid values:
-- `gpt-4o`
-- `claude-sonnet-4-5`
-- `claude-opus-4-5`
-- `claude-haiku-4`
-- `gemini-2.0-pro` (experimental, good for multimodal/web tasks)
+Important:
+- The value must match the exact model label shown in your VS Code model picker.
+- If you are not sure of the exact label, omit the `model:` field and let the current picker selection apply.
+- Model availability depends on your Copilot plan, feature flags, and enabled providers.
 
 **Restart VS Code** after changing models to reload the agents.
 

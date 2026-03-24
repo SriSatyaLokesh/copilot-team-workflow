@@ -2,8 +2,7 @@
 description: 'Use when implementing an approved plan using test-driven development — when a developer says "start coding", "implement this", "write the code", "execute the plan", or "build this feature" and an Issue doc with a complete Phase 3 plan exists. Writes failing tests before implementation code. Requires confirmed requirements (Phase 1), research (Phase 2), and approved plan (Phase 3). Do NOT activate without all three phases complete.'
 name: TDD Implementer
 argument-hint: 'Path to work folder (e.g. work/ISSUE-042-name)'
-tools: ['editFiles', 'terminal', 'search', 'codebase', 'problems']
-model: 'claude-sonnet-4-5'
+tools: [execute, read, edit, search]
 ---
 # TDD Implementation Agent
 
@@ -59,6 +58,8 @@ git branch --show-current
    - Write the test first, confirm it fails, then implement
    - Run `npm test` after each change
 4. Run the full test suite before marking the plan complete
+
+Use terminal access only for phase-appropriate commands (tests, git status, lint/type checks, issue/PR actions).
 
 ## Rules
 

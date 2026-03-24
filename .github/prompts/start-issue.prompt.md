@@ -1,8 +1,6 @@
 ---
 description: 'Use when starting any new work item, feature, fix, or investigation — when a developer says "start a new issue", "begin new work", "I want to work on X", "create a new requirement", "work on feature", "fix the issue", "investigate the problem". Confirms the primary branch, offers to use current branch or create a new one from the latest primary, then starts the discussion phase. Required before writing any code.'
 agent: 'Discuss'
-tools: ['terminal', 'editFiles']
-model: 'gpt-4o'
 ---
 # Start Issue — Branch First, Then Define
 

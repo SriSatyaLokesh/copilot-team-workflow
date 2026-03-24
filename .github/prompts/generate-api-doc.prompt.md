@@ -1,12 +1,10 @@
 ---
 description: 'Generate or update an API doc for the current file or endpoint'
 agent: 'ask'
-tools: ['search', 'codebase', 'usages']
-model: 'gpt-4o'
 ---
 Generate or update the API documentation for this endpoint.
 
-Read [${fileBasename}](${file}) and identify the HTTP endpoint(s) defined.
+Read `${file}` and identify the HTTP endpoint(s) defined.
 
 For each endpoint:
 1. Determine the HTTP method and path
@@ -20,4 +18,4 @@ Then either:
 - **Create** a new doc at `docs/apis/[domain]/[endpoint-name].api.md` using [api-doc-template](../docs/templates/api-doc-template.md)
 - **Update** the existing doc if it already exists
 
-File being documented: [${fileBasename}](${file})
+File being documented: `${file}`

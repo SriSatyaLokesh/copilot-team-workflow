@@ -1,8 +1,6 @@
 ---
 description: 'Use when ending a work session or switching context — when a developer says "summarize this session", "save my progress", "capture context", "end of day summary", or before closing the chat. Captures current context, decisions, blockers, and next steps to the Issue doc so the next session can continue seamlessly.'
 agent: 'ask'
-tools: ['search', 'codebase', 'changes', 'editFiles']
-model: 'claude-sonnet-4-5'
 ---
 # Summarize Session — Preserve Context for Next Session
 

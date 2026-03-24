@@ -1,8 +1,6 @@
 ---
 description: 'Use when implementation and verification are complete, before merging or closing out work — when a developer says "I\'m done", "ready to merge", "wrap up this branch", "create a PR", "finish this feature", or "clean up the branch". Presents 4 structured options: merge locally, create PR, keep branch, or discard. Tests must pass first.'
 agent: 'Verify'
-tools: ['terminal', 'search', 'codebase', 'editFiles', 'changes']
-model: 'claude-opus-4-5'
 ---
 # Finish Branch — Verify, Then Decide
 

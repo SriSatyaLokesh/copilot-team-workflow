@@ -5,7 +5,7 @@
 - ✅ **GitHub CLI integration** (automatic issue/PR creation)
 - ✅ **Dual-mode execution** (Agent Mode vs TDD Agent)
 - ✅ **Activity logging** (`logs/copilot/agent-activity.log`)
-- ✅ **Fixed agent handoff chain** (manual prompts for better control)
+- ✅ **Fixed agent handoff chain** (auto Discuss→Research + guided Research→Plan)
 - ✅ **11 skills auto-loaded** (TDD, doc-reviewer, GitHub CLI, etc.)
 
 ---
@@ -53,16 +53,16 @@ New-Item -ItemType Directory -Force work/
 **New (V2)**:
 ```
 @Discuss → @Research → /plan → /execute (Mode A/B) → /verify
-           (auto)      (user) (user choice)          (user)
+           (auto)      (guided/user) (user choice)   (user)
 ```
 
 **Why?** 
-- Clicking handoff buttons was causing agents to get stuck
+- Full auto-handoffs past Research were causing stuck-session failure modes
 - `/execute` prompt offers choice between Agent Mode and TDD Agent (was bypassed before)
-- Explicit commands (`/plan`, `/execute`, `/verify`) are clearer and more predictable
+- Guided transitions plus explicit commands (`/plan`, `/execute`, `/verify`) are clearer and more predictable
 
 **What changed**:
-- Research agent no longer has `handoffs: [agent: Planner]` — completes with "Run `/plan`" message
+- Research agent now uses guided Planner handoff (button + `/plan` fallback), without forced send
 - Planner agent no longer has `handoffs: [agent: TDD]` — completes with "Run `/execute`" message
 - User must explicitly run `/plan`, `/execute`, and `/verify` prompts
 

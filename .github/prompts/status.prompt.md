@@ -1,8 +1,6 @@
 ---
 description: 'Use when a developer needs to check their current progress on an Issue — when they say "where am I?", "what phase am I on?", "what should I do next?", "show status", "check progress", or "what is the current state?". Shows which phases are complete, which is in progress, and what the next step should be.'
 agent: 'ask'
-tools: ['search', 'codebase']
-model: 'claude-haiku-4'
 ---
 # Status — Check Current Issue Progress
 

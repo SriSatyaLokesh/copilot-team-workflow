@@ -1,7 +1,6 @@
 ---
 description: 'Use when executing an approved implementation plan — when a developer says "execute the plan", "start implementing", or "begin the tasks". Requires Phase 3 (Plan) to be complete. Offers choice between TDD agent execution or delegating to Copilot agent mode for heavy lifting, then returning to structured verification.'
-tools: ['editFiles', 'terminal', 'search', 'codebase', 'problems']
-model: 'claude-sonnet-4-5'
+tools: [execute, read, edit, search]
 ---
 # Execute Implementation Plan
 
@@ -15,6 +14,16 @@ Read `plan.md` from the work folder. Review Phase 3 critically:
 - Are verification commands specified?
 
 If concerns exist: raise them before starting. If clear: proceed.
+
+## Step 1.5 — Pre-Flight Checks (Required)
+
+Before any implementation work starts, confirm all of the following:
+- Selected execution mode is explicit (A or B)
+- If Mode A: agent mode has been reselected in the target chat
+- Terminal tool access is available for test and git commands
+- File editing tools are available for implementation updates
+
+If any check fails, stop and resolve it before coding.
 
 ## Step 2 — Choose Execution Mode
 
@@ -99,9 +108,11 @@ Show the bundled prompt to the developer and say:
 >
 > **Next steps:**
 > 1. Open a **new chat** (Ctrl+L / Cmd+L)
-> 2. Paste the context bundle above
-> 3. Let agent mode implement everything
-> 4. When it says "Ready for /verify", come back here and run `/verify ${input:work-folder}`
+> 2. Reselect **agent mode** in that chat
+> 3. Paste the context bundle above
+> 4. Confirm terminal + edit tools are available
+> 5. Let agent mode implement everything
+> 6. When it says "Ready for /verify", come back here and run `/verify ${input:work-folder}`
 >
 > **Why a new chat?** Keeps execution context clean. Agent mode works best in fresh sessions.
 >
@@ -168,6 +179,11 @@ The Verify agent will check requirements, test coverage, and code quality before
 - Save your work: `git add . && git commit -m "WIP: partial implementation"`
 - Come back and run `/verify` to see what's missing
 - Or switch to TDD agent: `@tdd ${input:work-folder}` (it will continue from where you stopped)
+
+### "Mode A started in the wrong mode"
+- Open a fresh chat window
+- Explicitly select agent mode before pasting the bundle
+- Re-run pre-flight checks and continue
 
 ### "Agent Mode completed but I'm not sure what changed"
 ```bash

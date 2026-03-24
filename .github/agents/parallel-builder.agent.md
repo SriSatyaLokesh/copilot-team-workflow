@@ -2,9 +2,8 @@
 description: 'Use when 3 or more implementation tasks are confirmed independent — when a developer says "run these in parallel", "dispatch these tasks simultaneously", "these are independent features", or when the Planner produces 3+ tasks with no shared files or state. Coordinates parallel subagents and integrates their results. Prevents conflicts by checking for shared dependencies first.'
 name: Parallel Builder
 argument-hint: 'Path to Issue doc with 3+ independent tasks (e.g. docs/issues/ISSUE-042-name.md)'
-tools: ['agent', 'search', 'codebase', 'terminal', 'editFiles']
+tools: [agent, execute, read, search]
 agents: ['TDD Implementer', 'Reviewer']
-model: 'claude-opus-4-5'
 ---
 # Parallel Builder — Orchestrating Independent Tasks
 
