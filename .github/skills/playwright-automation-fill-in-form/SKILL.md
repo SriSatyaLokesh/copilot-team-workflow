@@ -23,5 +23,3 @@ For each field:
 **DO NOT SUBMIT THE FORM.**
 
 Ask the user to review all filled values before submitting. Show a summary of what was entered.
-
-> Source: [github/awesome-copilot](https://github.com/github/awesome-copilot)

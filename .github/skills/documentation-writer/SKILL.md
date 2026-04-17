@@ -59,5 +59,3 @@ Always match the appropriate template from `docs/templates/`.
 - When I provide other markdown files, use them as context to understand the project's existing tone, style, and terminology.
 - DO NOT copy content from them unless explicitly asked.
 - Match the writing style of existing docs in the `docs/` folder.
-
-> Source: [github/awesome-copilot](https://github.com/github/awesome-copilot)

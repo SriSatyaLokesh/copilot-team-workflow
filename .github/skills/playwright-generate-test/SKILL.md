@@ -15,5 +15,3 @@ Your goal is to generate a Playwright test based on the provided scenario after 
 - Only after all steps are completed, emit a Playwright TypeScript test that uses `@playwright/test` based on message history.
 - Save the generated test file in the `tests/` directory following the naming convention `<feature>.spec.ts`.
 - Execute the test file and iterate until the test passes.
-
-> Source: [github/awesome-copilot](https://github.com/github/awesome-copilot)

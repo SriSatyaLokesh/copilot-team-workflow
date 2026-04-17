@@ -1,10 +1,12 @@
-# GitLab CLI Workflow Skill
-
-**When to load**: When user mentions git commands, GitLab CLI, creating MRs (Merge Requests), raising issues, branch operations, or GitLab automation.
-
-**Purpose**: Provides complete GitLab CLI (`glab`) and Git workflow knowledge for automated issue tracking, branch management, and MR creation.
-
 ---
+name: gitlab-cli-workflow
+description: Complete GitLab CLI (glab) and Git workflow knowledge for automated issue tracking, branch management, and MR creation. Use when handles GitLab-specific operations like creating issues, MRs, or managing branches with glab.
+---
+
+# GitLab CLI Workflow
+
+## Overview
+Provides complete GitLab CLI (`glab`) and Git workflow knowledge for automated issue tracking, branch management, and MR creation.
 
 ## GitLab Message Size Limits & Conventions
 
@@ -600,9 +602,3 @@ if (Test-IsGitLabRepo) {
 | Auto-close keyword | `Fixes #42` in PR body | `Closes #42` in MR description |
 | Issue URL pattern | `…/issues/42` | `…/-/issues/42` |
 | MR URL pattern | `…/pull/3` | `…/-/merge_requests/3` |
-
----
-
-**Last Updated**: March 18, 2026  
-**Status**: Complete & Tested  
-**Tool Versions**: GitLab CLI (glab) v1.x+, Git 2.x

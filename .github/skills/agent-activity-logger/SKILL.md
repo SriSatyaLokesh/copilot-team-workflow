@@ -1,5 +1,5 @@
 ---
-name: 'agent-activity-logger'
+name: agent-activity-logger
 description: 'Background reference skill defining the structured JSON log format written to logs/copilot/agent-activity.log by each phase agent on completion. Auto-loaded by Discuss, Research, Planner, TDD Implementer, and Verify agents when they append their completion log entry. Defines all required fields (timestamp, issueId, phase, agent, developer, status, summary, decisions, outputFile, nextPhase) and optional phase-specific fields (filesChanged for execute, testResults for verify). Also provides jq query examples for filtering logs by Issue, date, or status. Loads when log format, activity log, or agent logging is mentioned.'
 ---
 

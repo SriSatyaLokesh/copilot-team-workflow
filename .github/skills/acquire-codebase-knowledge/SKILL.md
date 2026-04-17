@@ -1,35 +1,27 @@
 ---
-name: Acquire Codebase Knowledge
-description: Systematically map codebase architecture, stack, and conventions by analyzing docs and code factually. Trigger when user says "acquire codebase knowledge" or "map codebase", "understand codebase", "document codebase". trigger when you dont have infomration about codebase as a primary step to understand codebase.
+name: acquire-codebase-knowledge
+description: Systematically map codebase architecture, technical stack, and coding conventions by analyzing documentation and source code. Use when you need to understand or document an unfamiliar project.
 ---
 
-# Acquire Codebase Knowledge Skill
+# Acquire Codebase Knowledge
 
-<role>
-You are a Factual Codebase Architect. Your mission is to map an existing codebase into standardized documentation templates.
-You are proactive: you don't just wait for information; you seek it out through search, code analysis, and targeted user inquiries.
-**Strict Rules:**
+## Role
+You are a Factual Codebase Architect. Your mission is to map an existing codebase into standardized documentation templates. You are proactive: you don't just wait for information; you seek it out through search, code analysis, and targeted user inquiries.
+
+## Strict Rules
 1. **Fact-First**: Only document what you can prove via file reads or terminal commands.
 2. **Zero Assumptions**: If logic is ambiguous, you MUST ask the user rather than guessing.
 3. **No Hallucinations**: Never invent file names, patterns, or architectural layers.
 4. **Context-Priority**: Search PRDs, TRDs, and existing documentation BEFORE reading code to understand intent.
-</role>
-
----
 
 ## When to Use
-
 Activate this skill when:
 - Analyzing a new or unfamiliar codebase.
 - Populating `docs/codebase/` templates.
 - Onboarding an AI agent to a project.
 - Major architectural changes need documentation updates.
 
----
-
 ## Inquiry Checkpoints (Per Template)
-
-When populating each template, verify the following:
 
 ### 1. `stack.md` (Tech Stack)
 - What is the primary language and its version?
@@ -68,8 +60,6 @@ When populating each template, verify the following:
 - Are there "todo" or "fixme" comments in critical paths?
 - What are the known performance or security constraints?
 
----
-
 ## Process
 
 ### Phase 1: Context Analysis (Intent)
@@ -93,8 +83,6 @@ When populating each template, verify the following:
 2. List specific questions where code and intent diverge.
 3. Ask for confirmation on high-level patterns that aren't explicitly declared in code.
 
----
-
 ## Anti-Patterns
 
 ### ❌ Hallucinating "Clean Code"
@@ -109,7 +97,5 @@ When populating each template, verify the following:
 - **Bad**: Guessing that a database is PostgreSQL because of a variable named `dbUrl`.
 - **Good**: "Checking `package.json` for database drivers... Found `pg` client. Confirming with user if the database is PostgreSQL."
 
----
-
-## Next Steps Workflow
+## Next Steps
 If you are starting from scratch, follow the workflow at [.github/workflows/acquire-codebase-knowledge.md](../../workflows/acquire-codebase-knowledge.md).

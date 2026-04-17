@@ -1,10 +1,12 @@
-# GitHub CLI Workflow Skill
-
-**When to load**: When user mentions git commands, GitHub CLI, creating PRs, raising issues, branch operations, or GitHub automation.
-
-**Purpose**: Provides complete GitHub CLI and Git workflow knowledge for automated issue tracking, branch management, and PR creation.
-
 ---
+name: github-cli-workflow
+description: Complete GitHub CLI and Git workflow knowledge for automated issue tracking, branch management, and PR creation. Use when handles GitHub-specific operations like creating issues, PRs, or managing branches with gh.
+---
+
+# GitHub CLI Workflow
+
+## Overview
+Provides complete GitHub CLI and Git workflow knowledge for automated issue tracking, branch management, and PR creation.
 
 ## GitHub Message Size Limits & Conventions
 
@@ -571,9 +573,3 @@ if (Test-IsGitHubRepo) {
     Write-Host "🌿 Branch: $branchName"
 }
 ```
-
----
-
-**Last Updated**: March 12, 2026  
-**Status**: Complete & Tested  
-**Tool Versions**: GitHub CLI v2.88.0+, Git 2.x
